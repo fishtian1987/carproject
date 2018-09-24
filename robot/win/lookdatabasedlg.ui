@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LookDatabaseDlg</class>
+ <widget class="QDialog" name="LookDatabaseDlg">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>577</width>
+    <height>402</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QGroupBox" name="groupBox">
+        <property name="title">
+         <string>查看数据库</string>
+        </property>
+        <widget class="QToolButton" name="toolButton">
+         <property name="geometry">
+          <rect>
+           <x>509</x>
+           <y>20</y>
+           <width>26</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <property name="cursor">
+          <cursorShape>OpenHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>...</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../res.qrc">
+           <normaloff>:/images/help.png</normaloff>:/images/help.png</iconset>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="closeButton">
+         <property name="geometry">
+          <rect>
+           <x>430</x>
+           <y>290</y>
+           <width>89</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>关闭</string>
+         </property>
+        </widget>
+        <widget class="QTableWidget" name="tableWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>60</y>
+           <width>401</width>
+           <height>291</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="deleteButton">
+         <property name="geometry">
+          <rect>
+           <x>430</x>
+           <y>220</y>
+           <width>89</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>删除</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="comboBox">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>30</y>
+           <width>351</width>
+           <height>25</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>30</y>
+           <width>41</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;名称:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="editButton">
+         <property name="geometry">
+          <rect>
+           <x>430</x>
+           <y>80</y>
+           <width>89</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>编辑</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="deleteTableButton">
+         <property name="geometry">
+          <rect>
+           <x>430</x>
+           <y>150</y>
+           <width>89</width>
+           <height>25</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>删除数据表</string>
+         </property>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../res.qrc"/>
+ </resources>
+ <connections/>
+</ui>

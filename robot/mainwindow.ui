@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>611</width>
+    <height>342</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>110</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>测试</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>611</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>文件</string>
+    </property>
+    <addaction name="actionLook"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>调参</string>
+    </property>
+    <addaction name="actionMagDriftAngle"/>
+    <addaction name="actionGpsBias"/>
+    <addaction name="actionPID"/>
+    <addaction name="actionRemoteSpeed"/>
+    <addaction name="actionNavSpeed"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>监测</string>
+    </property>
+    <addaction name="actionDetecpeed"/>
+   </widget>
+   <widget class="QMenu" name="menu_4">
+    <property name="title">
+     <string>采集</string>
+    </property>
+    <addaction name="actionCollectCoord"/>
+    <addaction name="action_2"/>
+   </widget>
+   <widget class="QMenu" name="menu_5">
+    <property name="title">
+     <string>关于</string>
+    </property>
+    <addaction name="actionHelp"/>
+   </widget>
+   <widget class="QMenu" name="menu_6">
+    <property name="title">
+     <string>调试</string>
+    </property>
+    <addaction name="actionNavigation"/>
+    <addaction name="actionTest"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_6"/>
+   <addaction name="menu_2"/>
+   <addaction name="menu_3"/>
+   <addaction name="menu_4"/>
+   <addaction name="menu_5"/>
+  </widget>
+  <action name="actionExit">
+   <property name="text">
+    <string>退出</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>帮助</string>
+   </property>
+  </action>
+  <action name="actionDetecpeed">
+   <property name="text">
+    <string>速度</string>
+   </property>
+  </action>
+  <action name="actionMagDriftAngle">
+   <property name="text">
+    <string>磁偏角</string>
+   </property>
+  </action>
+  <action name="actionGpsBias">
+   <property name="text">
+    <string>位置误差</string>
+   </property>
+  </action>
+  <action name="actionPID">
+   <property name="text">
+    <string>PID</string>
+   </property>
+  </action>
+  <action name="actionRemoteSpeed">
+   <property name="text">
+    <string>遥控速度</string>
+   </property>
+  </action>
+  <action name="actionNavSpeed">
+   <property name="text">
+    <string>导航速度</string>
+   </property>
+  </action>
+  <action name="actionCollectCoord">
+   <property name="text">
+    <string>坐标</string>
+   </property>
+  </action>
+  <action name="actionNavigation">
+   <property name="text">
+    <string>导航</string>
+   </property>
+  </action>
+  <action name="actionTest">
+   <property name="text">
+    <string>测试</string>
+   </property>
+  </action>
+  <action name="actionLook">
+   <property name="text">
+    <string>查看数据库</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>路况</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
