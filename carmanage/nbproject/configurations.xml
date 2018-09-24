@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="f1" displayName="base" projectFiles="true">
+      <itemPath>base/Buffer.cpp</itemPath>
+      <itemPath>base/Buffer.h</itemPath>
+      <itemPath>base/Condition.cpp</itemPath>
+      <itemPath>base/Condition.h</itemPath>
+      <itemPath>base/Endian.h</itemPath>
+      <itemPath>base/Epoll.cpp</itemPath>
+      <itemPath>base/Epoll.h</itemPath>
+      <itemPath>base/EpollFactory.h</itemPath>
+      <itemPath>base/EventLoop.cpp</itemPath>
+      <itemPath>base/EventLoop.h</itemPath>
+      <itemPath>base/EventLoopBucket.cpp</itemPath>
+      <itemPath>base/EventLoopBucket.h</itemPath>
+      <itemPath>base/Events.cpp</itemPath>
+      <itemPath>base/Events.h</itemPath>
+      <itemPath>base/Handle.cpp</itemPath>
+      <itemPath>base/Handle.h</itemPath>
+      <itemPath>base/Log.cpp</itemPath>
+      <itemPath>base/Log.h</itemPath>
+      <itemPath>base/Mutex.cpp</itemPath>
+      <itemPath>base/Mutex.h</itemPath>
+      <itemPath>base/MutexLocker.cpp</itemPath>
+      <itemPath>base/MutexLocker.h</itemPath>
+      <itemPath>base/NetAddress.cpp</itemPath>
+      <itemPath>base/NetAddress.h</itemPath>
+      <itemPath>base/PipeFd.h</itemPath>
+      <itemPath>base/Poll.cpp</itemPath>
+      <itemPath>base/Poll.h</itemPath>
+      <itemPath>base/PollFactory.h</itemPath>
+      <itemPath>base/Poller.cpp</itemPath>
+      <itemPath>base/Poller.h</itemPath>
+      <itemPath>base/PollerFactory.h</itemPath>
+      <itemPath>base/PthreadSem.cpp</itemPath>
+      <itemPath>base/PthreadSem.h</itemPath>
+      <itemPath>base/Rwlock.cpp</itemPath>
+      <itemPath>base/Rwlock.h</itemPath>
+      <itemPath>base/SigIgnore.cpp</itemPath>
+      <itemPath>base/SigIgnore.h</itemPath>
+      <itemPath>base/Socket.cpp</itemPath>
+      <itemPath>base/Socket.h</itemPath>
+      <itemPath>base/TcpConnBucket.cpp</itemPath>
+      <itemPath>base/TcpConnBucket.h</itemPath>
+      <itemPath>base/TcpConnection.cpp</itemPath>
+      <itemPath>base/TcpConnection.h</itemPath>
+      <itemPath>base/TcpServer.cpp</itemPath>
+      <itemPath>base/TcpServer.h</itemPath>
+      <itemPath>base/Thread.cpp</itemPath>
+      <itemPath>base/Thread.h</itemPath>
+      <itemPath>base/ThreadPool.cpp</itemPath>
+      <itemPath>base/ThreadPool.h</itemPath>
+      <itemPath>base/Timer.cpp</itemPath>
+      <itemPath>base/Timer.h</itemPath>
+      <itemPath>base/TimerHeap.cpp</itemPath>
+      <itemPath>base/TimerHeap.h</itemPath>
+      <itemPath>base/TimersScheduler.cpp</itemPath>
+      <itemPath>base/TimersScheduler.h</itemPath>
+      <itemPath>base/Timestamp.cpp</itemPath>
+      <itemPath>base/Timestamp.h</itemPath>
+      <itemPath>base/VirtualBase.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="f2" displayName="http" projectFiles="true">
+      <itemPath>http/HttpCommon.cpp</itemPath>
+      <itemPath>http/HttpCommon.h</itemPath>
+      <itemPath>http/HttpReqHandle.cpp</itemPath>
+      <itemPath>http/HttpReqHandle.h</itemPath>
+      <itemPath>http/HttpRequest.cpp</itemPath>
+      <itemPath>http/HttpRequest.h</itemPath>
+      <itemPath>http/HttpResponse.cpp</itemPath>
+      <itemPath>http/HttpResponse.h</itemPath>
+      <itemPath>http/HttpServer.cpp</itemPath>
+      <itemPath>http/HttpServer.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="f3" displayName="mdm" projectFiles="true">
+      <itemPath>mdm/ConsistencyHash.cpp</itemPath>
+      <itemPath>mdm/ConsistencyHash.h</itemPath>
+      <itemPath>mdm/HashNode.cpp</itemPath>
+      <itemPath>mdm/HashNode.h</itemPath>
+      <itemPath>mdm/Md5.cpp</itemPath>
+      <itemPath>mdm/Md5.h</itemPath>
+      <itemPath>mdm/MdmInfo.cpp</itemPath>
+      <itemPath>mdm/MdmInfo.h</itemPath>
+      <itemPath>mdm/MdmInfoLoader.cpp</itemPath>
+      <itemPath>mdm/MdmInfoLoader.h</itemPath>
+      <itemPath>mdm/mcacheTask.cpp</itemPath>
+      <itemPath>mdm/mcacheTask.h</itemPath>
+      <itemPath>mdm/mcacheTaskHandle.cpp</itemPath>
+      <itemPath>mdm/mcacheTaskHandle.h</itemPath>
+      <itemPath>mdm/mcacheTaskServer.cpp</itemPath>
+      <itemPath>mdm/mcacheTaskServer.h</itemPath>
+      <itemPath>mdm/memProtocol.cpp</itemPath>
+      <itemPath>mdm/memProtocol.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="f5" displayName="mysql" projectFiles="true">
+      <itemPath>mysql/mysql_connection_pool.cpp</itemPath>
+      <itemPath>mysql/mysql_connection_pool.h</itemPath>
+      <itemPath>mysql/mysqlwork.cpp</itemPath>
+      <itemPath>mysql/mysqlwork.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="f4" displayName="utils" projectFiles="true">
+      <itemPath>utils/utilfile.cpp</itemPath>
+      <itemPath>utils/utilfile.h</itemPath>
+      <itemPath>utils/utilstring.cpp</itemPath>
+      <itemPath>utils/utilstring.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="HeaderFiles" displayName="头文件" projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles" displayName="源文件" projectFiles="true">
+      <itemPath>main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles" displayName="资源文件" projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="测试文件"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="重要文件"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>8</standard>
+          <incDir>
+            <pElem>utils</pElem>
+            <pElem>base</pElem>
+            <pElem>http</pElem>
+            <pElem>mdm</pElem>
+            <pElem>/www/server/mysql/include</pElem>
+            <pElem>mysql</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <commandlineTool>g++</commandlineTool>
+          <linkerLibItems>
+            <linkerLibLibItem>glog</linkerLibLibItem>
+            <linkerLibLibItem>pthread</linkerLibLibItem>
+            <linkerLibLibItem>jsoncpp</linkerLibLibItem>
+            <linkerLibLibItem>z</linkerLibLibItem>
+            <linkerLibLibItem>m</linkerLibLibItem>
+            <linkerLibLibItem>dl</linkerLibLibItem>
+            <linkerLibFileItem>/www/server/mysql/lib/libmysqlclient.a</linkerLibFileItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="base/Buffer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Buffer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Condition.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Condition.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Endian.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Epoll.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Epoll.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/EpollFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/EventLoop.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/EventLoop.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/EventLoopBucket.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/EventLoopBucket.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Events.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Events.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Handle.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Handle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Log.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Log.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Mutex.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Mutex.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/MutexLocker.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/MutexLocker.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/NetAddress.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/NetAddress.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/PipeFd.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Poll.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Poll.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/PollFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Poller.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Poller.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/PollerFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/PthreadSem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/PthreadSem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Rwlock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Rwlock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/SigIgnore.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/SigIgnore.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Socket.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Socket.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/TcpConnBucket.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/TcpConnBucket.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/TcpConnection.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/TcpConnection.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/TcpServer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/TcpServer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Thread.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Thread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/ThreadPool.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/ThreadPool.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Timer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Timer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/TimerHeap.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/TimerHeap.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/TimersScheduler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/TimersScheduler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Timestamp.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Timestamp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/VirtualBase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="http/HttpCommon.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="http/HttpCommon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="http/HttpReqHandle.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="http/HttpReqHandle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="http/HttpRequest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="http/HttpRequest.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="http/HttpResponse.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="http/HttpResponse.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="http/HttpServer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="http/HttpServer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/ConsistencyHash.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/ConsistencyHash.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/HashNode.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/HashNode.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/Md5.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/Md5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/MdmInfo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/MdmInfo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/MdmInfoLoader.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/MdmInfoLoader.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/mcacheTask.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/mcacheTask.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/mcacheTaskHandle.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/mcacheTaskHandle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/mcacheTaskServer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/mcacheTaskServer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/memProtocol.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/memProtocol.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mysql/mysql_connection_pool.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mysql/mysql_connection_pool.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mysql/mysqlwork.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mysql/mysqlwork.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils/utilfile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils/utilfile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils/utilstring.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils/utilstring.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <standard>8</standard>
+          <incDir>
+            <pElem>utils</pElem>
+            <pElem>base</pElem>
+            <pElem>http</pElem>
+            <pElem>mdm</pElem>
+            <pElem>/www/server/mysql/include</pElem>
+            <pElem>mysql</pElem>
+          </incDir>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>glog</linkerLibLibItem>
+            <linkerLibLibItem>pthread</linkerLibLibItem>
+            <linkerLibLibItem>jsoncpp</linkerLibLibItem>
+            <linkerLibLibItem>z</linkerLibLibItem>
+            <linkerLibLibItem>m</linkerLibLibItem>
+            <linkerLibLibItem>dl</linkerLibLibItem>
+            <linkerLibFileItem>/www/server/mysql/lib/libmysqlclient.a</linkerLibFileItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="base/Buffer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Buffer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Condition.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Condition.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Endian.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Epoll.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Epoll.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/EpollFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/EventLoop.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/EventLoop.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/EventLoopBucket.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/EventLoopBucket.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Events.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Events.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Handle.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Handle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Log.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Log.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Mutex.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Mutex.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/MutexLocker.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/MutexLocker.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/NetAddress.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/NetAddress.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/PipeFd.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Poll.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Poll.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/PollFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Poller.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Poller.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/PollerFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/PthreadSem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/PthreadSem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Rwlock.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Rwlock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/SigIgnore.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/SigIgnore.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Socket.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Socket.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/TcpConnBucket.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/TcpConnBucket.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/TcpConnection.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/TcpConnection.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/TcpServer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/TcpServer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Thread.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Thread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/ThreadPool.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/ThreadPool.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Timer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Timer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/TimerHeap.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/TimerHeap.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/TimersScheduler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/TimersScheduler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/Timestamp.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="base/Timestamp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="base/VirtualBase.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="http/HttpCommon.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="http/HttpCommon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="http/HttpReqHandle.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="http/HttpReqHandle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="http/HttpRequest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="http/HttpRequest.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="http/HttpResponse.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="http/HttpResponse.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="http/HttpServer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="http/HttpServer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/ConsistencyHash.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/ConsistencyHash.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/HashNode.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/HashNode.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/Md5.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/Md5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/MdmInfo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/MdmInfo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/MdmInfoLoader.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/MdmInfoLoader.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/mcacheTask.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/mcacheTask.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/mcacheTaskHandle.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/mcacheTaskHandle.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/mcacheTaskServer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/mcacheTaskServer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mdm/memProtocol.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mdm/memProtocol.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mysql/mysql_connection_pool.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mysql/mysql_connection_pool.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mysql/mysqlwork.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mysql/mysqlwork.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils/utilfile.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils/utilfile.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils/utilstring.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils/utilstring.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
