@@ -93,6 +93,10 @@ void MainWindow::openUsart()
     Usart4GDriver *usart4g = Usart4GDriver::instance();
     usart4g->openUsart();
     connect(usart4g, SIGNAL(allPreprocessorDone(QByteArray&)), this, SLOT(allPreprocessorDone(QByteArray&)));
+
+    UsartGPSDriver *usartgps = UsartGPSDriver::instance();
+    usartgps->openUsart();
+    connect(usartgps, SIGNAL(allPreprocessorDone(QByteArray&)), this, SLOT(allPreprocessorDone(QByteArray&)));
 }
 
 void MainWindow::openDatabase()
@@ -123,6 +127,9 @@ void MainWindow::allPreprocessorDone(QByteArray &data)
     case Atk::D_C4GCONTROL:{
         analysis4GData(msg.data);
     }break;
+    case Atk::D_CGPSCONTROL:{
+        analysisGPSData(msg.data);
+    }
     default:break;
     }
 }
@@ -171,7 +178,19 @@ void MainWindow::analysisMainData(QByteArray &data)
 void MainWindow::analysis4GData(QByteArray &data)
 {
     switch(data.at(0)){
-    //case Atk::C_
+    case Atk::C_PASS_4G:{
+
+    }break;
+    default:break;
+    }
+}
+
+void MainWindow::analysisGPSData(QByteArray &data)
+{
+    switch (data.at(0)) {
+    case Atk::C_PASS_GPS:{
+        dataPro->getPassby4G();
+    }break;
     default:break;
     }
 }

@@ -50,6 +50,7 @@ private:
     void analysisMainData(QByteArray &);
     //void analysisSubData(QByteArray &);
     void analysis4GData(QByteArray &);
+    void analysisGPSData(QByteArray &data);
     void senRoutesData();
     void SetSendDataState(uint8_t state);
     uint8_t GetSendDataState();

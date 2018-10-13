@@ -18,6 +18,7 @@ public:
        D_CMAINCONTROL=0x01,
        D_CSUBCONTROL=0x02,
        D_C4GCONTROL=0x03,
+       D_CGPSCONTROL=0x04,
        INVALID=0xFF
     };
 
@@ -42,9 +43,13 @@ public:
     };
 
     enum Cmd4G_Type{
-        C_POINT_DATA=0x01,
-        C_PASS_DATA=0x02,
-        C_CAR_STATE=0x03,
+        C_POINT_4G=0x01,
+        C_PASS_4G=0x02,
+        C_CARSTATE_4G=0x03
+    };
+
+    enum CmdGPS_Type{
+        C_PASS_GPS=0x01
     };
 
     static unsigned int RADIUS;

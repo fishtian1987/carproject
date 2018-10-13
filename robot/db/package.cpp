@@ -8,6 +8,7 @@ Package::Package()
 {
     usart=UsartDriver::instance();
     usart4g=Usart4GDriver::instance();
+    usartgps=UsartGPSDriver::instance();
 }
 
 Package::~Package()
@@ -35,7 +36,14 @@ void Package::packMsg(Message *msg)
     usart->writeUsart(sendBuffer);
 }
 
-void Package::pack4gMsg(Message *msg)
+void Package::pack4gMsg(QString msg)
+{
+    QByteArray sendBuffer;
+    sendBuffer.append(msg);
+    usart4g->writeUsart(sendBuffer);
+}
+
+void Package::packGPSMsg(Message *msg)
 {
     uint8_t cksum = 0;
     QByteArray sendBuffer;
@@ -52,7 +60,7 @@ void Package::pack4gMsg(Message *msg)
     for(int i=0;i<sendBuffer.size();i++)
         qDebug()<<(uint8_t)sendBuffer.at(i);
 
-    usart4g->writeUsart(sendBuffer);
+    usartgps->writeUsart(sendBuffer);
 }
 
 Message Package::unpackMsg(QByteArray &buf)
@@ -72,3 +80,4 @@ Message Package::unpackMsg(QByteArray &buf)
     }
     return msg;
 }
+

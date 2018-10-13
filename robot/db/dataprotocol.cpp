@@ -67,3 +67,15 @@ void DataProtocol::sendRoutesData(QList<RouteInfo> &data)
     }
     package->packMsg(&msg);
 }
+
+void DataProtocol::sendPasstoGPS(QByteArray buf)
+{
+    Message msg;
+
+    package->packGPSMsg(&msg);
+}
+
+void DataProtocol::getPassby4G()
+{
+    package->pack4gMsg("getpass");
+}
