@@ -72,6 +72,10 @@ void DataProtocol::sendPasstoGPS(QByteArray buf)
 {
     Message msg;
 
+    msg.msgID=Atk::D_CGPSCONTROL;
+    msg.data.append(Atk::C_PASS_GPS);
+    msg.data.append(buf);
+
     package->packGPSMsg(&msg);
 }
 
