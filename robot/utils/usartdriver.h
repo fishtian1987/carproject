@@ -72,7 +72,7 @@ private slots:
     void readUsart();
 private:
     static CGarboU  cGarboU;
-    const QString portName = "/dev/ttyUSB0";
+    const QString portName = "/dev/ttySAC3";
     qint32 baudRate=115200;
     QSerialPort *serial;
 };
@@ -108,7 +108,7 @@ private slots:
     void readUsart();
 private:
     static CGarboU  cGarboU;
-    const QString portName = "/dev/ttyUSB0";
+    const QString portName = "/dev/ttySAC4";
     qint32 baudRate=115200;
     QSerialPort *serial;
 };

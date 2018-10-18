@@ -58,14 +58,16 @@ void MainWindow::test()
     HintDialog dialog(this);
     dialog.setText("<h2><font color=red>警告</font></h2>"
                    "<p><font color=blue>速度因子</font>"
-                   "<p><font color=blue>参数必须在0~10之间.</font>");
+                   "<p><font color=blue>参数必须在0~11之间.</font>");
     dialog.exec();
 
-    Usart4GDriver *usart4g;
-    usart4g=Usart4GDriver::instance();
-    QByteArray sendBuffer;
-    sendBuffer.append("aa");
-    usart4g->writeUsart(sendBuffer);
+    dataPro->sendPasstoGPS();
+
+//    Usart4GDriver *usart4g;
+//    usart4g=Usart4GDriver::instance();
+//   QByteArray sendBuffer;
+//    sendBuffer.append("aa");
+//   usart4g->writeUsart(sendBuffer);
 }
 
 MainWindow::~MainWindow()
@@ -189,7 +191,8 @@ void MainWindow::analysisGPSData(QByteArray &data)
 {
     switch (data.at(0)) {
     case Atk::C_PASS_GPS:{
-        dataPro->getPassby4G();
+        //dataPro->getPassby4G();
+        //dataPro->sendPasstoGPS("001");
     }break;
     default:break;
     }

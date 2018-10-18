@@ -68,13 +68,17 @@ void DataProtocol::sendRoutesData(QList<RouteInfo> &data)
     package->packMsg(&msg);
 }
 
-void DataProtocol::sendPasstoGPS(QByteArray buf)
+//void DataProtocol::sendPasstoGPS(QByteArray buf)
+void DataProtocol::sendPasstoGPS()
 {
     Message msg;
 
+    int temp = 11;
     msg.msgID=Atk::D_CGPSCONTROL;
-    msg.data.append(Atk::C_PASS_GPS);
-    msg.data.append(buf);
+    msg.data.append(BYTE3(temp));
+    msg.data.append(BYTE2(temp));
+    msg.data.append(BYTE1(temp));
+    msg.data.append(BYTE0(temp));
 
     package->packGPSMsg(&msg);
 }
