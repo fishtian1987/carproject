@@ -5,6 +5,7 @@
 #include "info/atk.h"
 #include <QByteArray>
 #include <QDebug>
+#include <QMessageBox>
 
 DataProtocol::DataProtocol()
 {
@@ -68,12 +69,22 @@ void DataProtocol::sendRoutesData(QList<RouteInfo> &data)
     package->packMsg(&msg);
 }
 
-//void DataProtocol::sendPasstoGPS(QByteArray buf)
+void DataProtocol::sendPasstoGPS(QByteArray buf)
+{
+    Message msg;
+    msg.msgID=Atk::D_CGPSCONTROL;
+    msg.data.append(buf);
+
+    QMessageBox::information(NULL, "Title", "Content", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+
+    package->packGPSMsg(&msg);
+}
+
 void DataProtocol::sendPasstoGPS()
 {
     Message msg;
 
-    int temp = 11;
+    int temp = 111111;
     msg.msgID=Atk::D_CGPSCONTROL;
     msg.data.append(BYTE3(temp));
     msg.data.append(BYTE2(temp));

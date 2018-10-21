@@ -73,6 +73,7 @@ private slots:
 private:
     static CGarboU  cGarboU;
     const QString portName = "/dev/ttySAC3";
+    //const QString portName = "/dev/ttyUSB0";
     qint32 baudRate=115200;
     QSerialPort *serial;
 };

@@ -18,6 +18,7 @@
 #include "info/atk.h"
 #include <QtWidgets>
 #include "dlg/hintdialog.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -61,7 +62,8 @@ void MainWindow::test()
                    "<p><font color=blue>参数必须在0~11之间.</font>");
     dialog.exec();
 
-    dataPro->sendPasstoGPS();
+    dataPro->getPassby4G();
+    //dataPro->sendPasstoGPS();
 
 //    Usart4GDriver *usart4g;
 //    usart4g=Usart4GDriver::instance();
@@ -181,7 +183,7 @@ void MainWindow::analysis4GData(QByteArray &data)
 {
     switch(data.at(0)){
     case Atk::C_PASS_4G:{
-
+        dataPro->sendPasstoGPS(data.mid(1));
     }break;
     default:break;
     }
@@ -189,13 +191,11 @@ void MainWindow::analysis4GData(QByteArray &data)
 
 void MainWindow::analysisGPSData(QByteArray &data)
 {
-    switch (data.at(0)) {
-    case Atk::C_PASS_GPS:{
-        //dataPro->getPassby4G();
-        //dataPro->sendPasstoGPS("001");
-    }break;
-    default:break;
-    }
+    unsigned char _temp=0;
+    _temp=(uint8_t)data.at(0);
+    char tmpstr[30];
+    sprintf(tmpstr, "%d box open!!\n", _temp);
+    QMessageBox::information(NULL, "Title", tmpstr, QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 }
 
 void MainWindow::allTransactionsDone()
