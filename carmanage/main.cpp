@@ -26,8 +26,8 @@ int main()
     EventLoop *loop = new EventLoop;
 
     //HttpServer *ser = new HttpServer(loop, NetAddress(AF_INET, 6666, "192.169.133.46"));
-    HttpServer *ser = new HttpServer(loop, NetAddress(AF_INET,  9999,  "192.168.0.76"));
-    //HttpServer *ser = new HttpServer(loop, NetAddress(AF_INET,  9999,  "172.27.0.10"));
+    //HttpServer *ser = new HttpServer(loop, NetAddress(AF_INET,  9999,  "192.168.0.76"));
+    HttpServer *ser = new HttpServer(loop, NetAddress(AF_INET,  9999,  "172.27.0.10"));
 
     ser->start();
 

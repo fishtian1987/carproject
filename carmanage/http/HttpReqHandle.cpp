@@ -59,6 +59,21 @@ bool fas::http::HttpReqHandle::handleMethod(TcpConnShreadPtr conn, const HttpReq
   return false;
 }
 
+char randstr[] = {"123456789"};
+
+int myrand()
+{
+    int ret = 0;
+    for(int i = 0; i < 6; i++)
+    {
+        std::random_device rd;
+        int num = rd()%9;
+        ret += (randstr[num]-'0')*pow(10,i); 
+    }
+
+    return ret;
+}
+
 bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpRequest& req) {
   if (req.getPath().find("../") != std::string::npos) {
     this->HandleError(conn, req, "400");
@@ -85,38 +100,77 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
     LOGGER_TRACE(iter.first << " : " << iter.second);
   }
 #endif
-  struct stat st;
-  if (!fas::utils::GetFileStat(file, &st)) {
-    this->HandleError(conn, req, "400");
-    return false;
-  }
-  if (fas::utils::IsRegularFile(&st)) {
+    if(strcmd.compare("getpass") == 0)
+    {
+        file = options_.getServerPath() + "getpass.txt";
 
-    int fdret = open(file.c_str(), O_RDONLY);
-    if (fdret < 0) {
-      HandleError(conn, req, "400");
-      return false;
+        int fd = open(file.c_str(), O_WRONLY|O_CREAT, 0777);
+        if (fd < 0) {
+            HandleError(conn, req, "400");
+            return false;
+        }
+
+        unsigned char cksum = 0;
+        unsigned char buf[40];
+        int offset = 0;
+        memcpy(buf+offset, "\xAA\xAF\x03\x00\x02", 5);
+        offset += 5;
+        
+        for(int j = 0; j < 8; j++)
+        {
+            int ra = myrand();
+            
+            LOGGER_TRACE("pass "<< j <<": " << ra);
+            
+            ra = htonl(ra);
+            
+            memcpy(buf+offset, &ra, 4);
+            offset += 4;
+        }
+        
+        for(int i = 0; i < offset; i++)
+            cksum += buf[i];
+        buf[offset]=cksum;
+        offset++;
+        
+        write(fd, buf, offset);
+
+        close(fd);
     }
 
-    massDataC_.ContextReset(fdret, fas::utils::FileSizeInBytes(&st), 0);
+    struct stat st;
+    if (!fas::utils::GetFileStat(file, &st)) {
+        this->HandleError(conn, req, "400");
+        return false;
+    }
+    if (fas::utils::IsRegularFile(&st)) {
 
-    conn->sendString(req.getVersion() + " 200 OK\r\n");
+        int fdret = open(file.c_str(), O_RDONLY);
+        if (fdret < 0) {
+          HandleError(conn, req, "400");
+          return false;
+        }
 
-    LOGGER_TRACE("send file length : " << std::to_string(fas::utils::FileSizeInBytes(&st)));
+        massDataC_.ContextReset(fdret, fas::utils::FileSizeInBytes(&st), 0);
 
-    conn->sendString(std::string("Date: ") + "Sun, 26 Aug 2018 05:05:47 GMT\r\n");
-    conn->sendString(std::string("Content-Length: ") +
-                      std::to_string(fas::utils::FileSizeInBytes(&st)) + "\r\n");
-    conn->sendString(std::string("Keep-Alive: ") + "timeout=5, max=100\r\n"); 
-    conn->sendString(std::string("Connection: ") + "Keep-Alive\r\n");    
-    conn->sendString(std::string("Content-Type: ") +
-                      globalContentType.getType(fas::utils::StringGetSuffix(file)) +
-                     "\r\n");
+        conn->sendString(req.getVersion() + " 200 OK\r\n");        
+        
+        LOGGER_TRACE("send file length : " << std::to_string(fas::utils::FileSizeInBytes(&st)));
+        
+        conn->sendString(std::string("Date: ") + "Sun, 26 Aug 2018 05:05:47 GMT\r\n");
+        conn->sendString(std::string("Content-Length: ") +
+                          std::to_string(fas::utils::FileSizeInBytes(&st)) + "\r\n");
+        conn->sendString(std::string("Keep-Alive: ") + "timeout=5, max=100\r\n"); 
+        conn->sendString(std::string("Connection: ") + "Keep-Alive\r\n");    
+        conn->sendString(std::string("Content-Type: ") +
+                          globalContentType.getType(fas::utils::StringGetSuffix(file)) +
+                         "\r\n");
 
-    conn->sendString("\r\n");
+        conn->sendString("\r\n");
 
-    conn->setHasMoreData();
-  }
+        conn->setHasMoreData();
+    }
+
   return true;
 }
 
