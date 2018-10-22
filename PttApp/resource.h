@@ -9,6 +9,7 @@
 #define IDI_ICON4                       133
 #define IDI_ICON2                       134
 #define IDI_ICON5                       135
+#define IDI_ICON6                       136
 #define IDC_BUTTON1                     1000
 #define IDC_BUTTON2                     1001
 
@@ -16,7 +17,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        136
+#define _APS_NEXT_RESOURCE_VALUE        137
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1002
 #define _APS_NEXT_SYMED_VALUE           104

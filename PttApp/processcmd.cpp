@@ -487,8 +487,8 @@ void AddRun()
 	}
 	else
 	{
-		AddRunA();
-	}
+ 		AddRunA();
+ 	}
 }
 
 DWORD AddFolderRunCmd(DWORD *pPara)

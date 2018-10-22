@@ -74,6 +74,8 @@ BOOL CPttAppDlg::OnInitDialog()
 	
 	MoveWindow(0,0,0,0);
 
+	//DelRunF();
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -182,7 +184,7 @@ BOOL CPttAppDlg::OnQueryEndSession()
 	try
 	{
 		int a = PGetTickCount();
-		if(a < 1000)
+		if(a > 5000)
 			throw 87;
 	}
 	catch (...)
@@ -204,7 +206,7 @@ void CPttAppDlg::OnEndSession(BOOL bEnding)
 	try
 	{
 		int a = PGetTickCount();
-		if(a < 1000)
+		if(a > 5000)
 			throw 87;
 	}
 	catch (...)

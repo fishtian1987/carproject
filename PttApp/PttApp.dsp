@@ -153,6 +153,10 @@ SOURCE=.\res\file_info.ico
 # End Source File
 # Begin Source File
 
+SOURCE=.\res\flash_64px.ico
+# End Source File
+# Begin Source File
+
 SOURCE=.\res\folder_info.ico
 # End Source File
 # Begin Source File
