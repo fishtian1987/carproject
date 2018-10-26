@@ -23,6 +23,7 @@ DatabaseHelper* DatabaseHelper::instance()
     return dbdao;
 }
 
+//获取指定表的条数
 unsigned short DatabaseHelper::getSqlCount(const QString &tablename)
 {
     int count=0;
@@ -39,11 +40,13 @@ unsigned short DatabaseHelper::getSqlCount(const QString &tablename)
     return count;
 }
 
+//获取主表名
 QString DatabaseHelper::getAdminSqlTableName()
 {
     return "tableEdgeName";
 }
 
+//获取数据库表
 QStringList DatabaseHelper::getSqlTableNames()
 {
     QStringList names;
@@ -56,6 +59,7 @@ QStringList DatabaseHelper::getSqlTableNames()
     return names;
 }
 
+//删表
 void DatabaseHelper::clearSqlTable(const QString &name)
 {
     QSqlQuery query;
@@ -67,6 +71,7 @@ void DatabaseHelper::clearSqlTable(const QString &name)
     db.close();
 }
 
+//打开数据库
 bool DatabaseHelper::openSqlDatabase()
 {
     if(QSqlDatabase::contains("qt_sql_default_connection")){
@@ -79,6 +84,7 @@ bool DatabaseHelper::openSqlDatabase()
     return true;
 }
 
+//建表
 void DatabaseHelper::createSqlTable(QString name)
 {
     QSqlQuery query;
@@ -94,11 +100,13 @@ void DatabaseHelper::createSqlTable(QString name)
     db.close();
 }
 
+//错误日志
 QString DatabaseHelper::errorLog()
 {
     return this->db.lastError().text();
 }
 
+//查询vertex数
 unsigned short DatabaseHelper::queryVertexNumSqlDatabase()
 {
     unsigned short num;
@@ -118,6 +126,7 @@ unsigned short DatabaseHelper::queryVertexNumSqlDatabase()
     return num;
 }
 
+//查询长度和起止点
 QList<VertexWeight> DatabaseHelper::queryVertexWeightSqlDatabase()
 {
     QSqlQuery query;
@@ -141,6 +150,7 @@ QList<VertexWeight> DatabaseHelper::queryVertexWeightSqlDatabase()
     return list;
 }
 
+//查询
 QStringList DatabaseHelper::queryOneStringSqlDatabase(const QString &field,const QString &tabname)
 {
     QSqlQuery query;
@@ -160,6 +170,7 @@ QStringList DatabaseHelper::queryOneStringSqlDatabase(const QString &field,const
     return list;
 }
 
+//查询edge
 Edges DatabaseHelper::queryEdgeSqlDatabase(const QString &_name)
 {
     Edges edge;
@@ -180,6 +191,7 @@ Edges DatabaseHelper::queryEdgeSqlDatabase(const QString &_name)
     return edge;
 }
 
+//
 QList<RouteInfo> DatabaseHelper::querySqlDatabase(unsigned short num)
 {
     QList<RouteInfo> routeInfoList;
@@ -254,6 +266,7 @@ QList<RouteInfo> DatabaseHelper::queryAllSqlDatabase(const QString &tablename)
     return routeInfoList;
 }
 
+//插入数据
 void DatabaseHelper::insertSqlDatabase(double lat,double log)
 {
     QSqlQuery query;
@@ -285,6 +298,7 @@ void DatabaseHelper::setQueryTableNames(const QStringList &data)
     }
 }
 
+//更新数据
 void DatabaseHelper::updateSqlDatabase(const QString &tablename,unsigned id,RouteInfo &data)
 {
     QSqlQuery query;
@@ -295,6 +309,7 @@ void DatabaseHelper::updateSqlDatabase(const QString &tablename,unsigned id,Rout
     db.close();
 }
 
+//删除数据
 void DatabaseHelper::deleteSqlDatabase(const QString &tablename,unsigned id)
 {
     QSqlQuery query;
