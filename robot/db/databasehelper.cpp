@@ -23,6 +23,13 @@ DatabaseHelper* DatabaseHelper::instance()
     return dbdao;
 }
 
+void DatabaseHelper::ResetDefaultIndex()
+{
+    indexRoutesData=1;
+    tableListIndex=0;
+    recordCount=0;
+}
+
 //获取指定表的条数
 unsigned short DatabaseHelper::getSqlCount(const QString &tablename)
 {
