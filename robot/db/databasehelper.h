@@ -33,6 +33,7 @@ public:
     Edges queryEdgeSqlDatabase(const QString &);
     QList<RouteInfo> queryAllSqlDatabase(const QString &);
     QList<RouteInfo> querySqlDatabase(unsigned short );
+    void ResetDefaultIndex();
 
 private:
     QList<RouteInfo> querySqlDatabaseSub(unsigned short num);

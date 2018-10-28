@@ -54,6 +54,8 @@ private:
     void senRoutesData();
     void SetSendDataState(uint8_t state);
     uint8_t GetSendDataState();
+    void ResetSendDataState();
+
 private:
     Ui::MainWindow *ui;
     uint8_t sendDataState;

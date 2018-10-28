@@ -58,6 +58,7 @@
     <property name="title">
      <string>监测</string>
     </property>
+    <addaction name="separator"/>
     <addaction name="actionDetecpeed"/>
    </widget>
    <widget class="QMenu" name="menu_4">

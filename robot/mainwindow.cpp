@@ -240,6 +240,11 @@ uint8_t MainWindow::GetSendDataState()
     return sendDataState;
 }
 
+void MainWindow::ResetSendDataState()
+{
+    sendDataState=0;
+}
+
 void MainWindow::openLookDatabaseDlg()
 {
     LookDatabaseDlg dialog(this);
@@ -290,11 +295,13 @@ void MainWindow::openCollectCoordinateDlg()
 
 void MainWindow::openAutoNavigationDlg()
 {
+    DatabaseHelper *dao=DatabaseHelper::instance();
     AutoNavigationDlg dialog(this);
     if(dialog.exec()){
         if(dialog.getControlMode()){
             Utils::Delay_MSec(5000);
             SetSendDataState(Atk::C_ROUTE_BIAS);
+            dao->ResetDefaultIndex();
             addTransaction(new queryDBTransaction(0));
         }
     }
