@@ -61,6 +61,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/base/TimerHeap.o \
 	${OBJECTDIR}/base/TimersScheduler.o \
 	${OBJECTDIR}/base/Timestamp.o \
+	${OBJECTDIR}/http/HttpCommand.o \
 	${OBJECTDIR}/http/HttpCommon.o \
 	${OBJECTDIR}/http/HttpReqHandle.o \
 	${OBJECTDIR}/http/HttpRequest.o \
@@ -237,6 +238,11 @@ ${OBJECTDIR}/base/Timestamp.o: base/Timestamp.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Timestamp.o base/Timestamp.cpp
+
+${OBJECTDIR}/http/HttpCommand.o: http/HttpCommand.cpp
+	${MKDIR} -p ${OBJECTDIR}/http
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/http/HttpCommand.o http/HttpCommand.cpp
 
 ${OBJECTDIR}/http/HttpCommon.o: http/HttpCommon.cpp
 	${MKDIR} -p ${OBJECTDIR}/http

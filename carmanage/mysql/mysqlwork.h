@@ -23,7 +23,8 @@ public:
  public:
     static mysqlwork* GetInstance();
     static void DestroyInstance();
-    bool Init();   
+    bool Init();
+    bool SetBoxPass(int boxid, int pass);
     
 private:
     static mysqlwork* m_pInstance;

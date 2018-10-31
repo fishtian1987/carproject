@@ -24,8 +24,14 @@ public:
   ~ServerOptions();
   std::string getServerPath() const;
   void setServerPath(const std::string& path);
+  std::string getFlagPath() const;
+  void setFlagPath(const std::string& path);
+  std::string getDataPath() const;
+  void setDataPath(const std::string& path);    
 private:
   std::string serverPath_;
+  std::string flagPath_;
+  std::string dataPath_;
 };
 
 class ContentTypes {

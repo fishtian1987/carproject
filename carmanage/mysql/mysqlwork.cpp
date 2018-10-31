@@ -12,7 +12,7 @@
  */
 
 #include "mysqlwork.h"
-
+#include "stdio.h"
 
 mysqlwork::mysqlwork() {
 }
@@ -51,6 +51,21 @@ bool mysqlwork::Init()
     int ret = 0;
     ret = pool->initMysqlConnPool("localhost", 3306, "car_txy", "dLn226kPmc4RXXpN", "car_txy");
     ret = pool->openConnPool(10);
+    
+    return true;
+}
+
+bool mysqlwork::SetBoxPass(int boxid, int pass)
+{
+    mysqlConnection *mysqlConn = pool->fetchConnection();
+    if(mysqlConn != NULL)
+    {
+        char sqlstr[100];
+        snprintf(sqlstr, 100, "update tp_car_box set pass = %d where id = %d", pass, boxid);
+        
+        pool->executeSql(mysqlConn, sqlstr);
+        pool->recycleConnection(mysqlConn);
+    }
     
     return true;
 }

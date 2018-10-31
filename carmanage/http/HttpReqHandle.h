@@ -7,6 +7,7 @@
 #include <HttpResponse.h>
 #include <HttpRequest.h>
 #include <HttpCommon.h>
+#include <HttpCommand.h>
 
 namespace fas {
 
@@ -62,6 +63,7 @@ private:
   HttpRequest request_;
   HttpResponse response_;
   ServerOptions options_;
+  HttpCommand command_;
 
   SendMassDataContext massDataC_;
 

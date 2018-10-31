@@ -9,6 +9,7 @@
 #include <HttpCommon.h>
 #include <TcpConnection.h>
 #include <Log.h>
+#include "mysqlwork.h"
 
 
 #include <boost/core/ignore_unused.hpp>
@@ -89,10 +90,11 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
   if(aaa != std::string::npos)
   {
       strcmd = getpath.substr(aaa+1);
-      getpath = getpath.substr(0, aaa);
+      getpath = getpath.substr(1, aaa);
   }
 
   std::string file = options_.getServerPath() + getpath;
+  std::string putflgfile, workflgfile;
 
   LOGGER_TRACE("tid : " << gettid() << " get file: " << file << " para: " << strcmd);
 #if 1
@@ -100,27 +102,25 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
     LOGGER_TRACE(iter.first << " : " << iter.second);
   }
 #endif
-    if(strcmd.compare("getpass") == 0)
+  command_.analyseHttpCommand(strcmd);
+    if(command_.getCommand().compare("getpass") == 0)
     {
-        file = options_.getServerPath() + "getpass.txt";
-
-        int fd = open(file.c_str(), O_WRONLY|O_CREAT, 0777);
-        if (fd < 0) {
-            HandleError(conn, req, "400");
-            return false;
-        }
-
+        putflgfile = options_.getFlagPath() + command_.getCarid() + "_put.flg";
+        workflgfile = options_.getFlagPath() + command_.getCarid() + "_work.flg";
+        file = options_.getDataPath() + command_.getCarid() + "_getpass.txt";
+        
         unsigned char cksum = 0;
         unsigned char buf[40];
         int offset = 0;
         memcpy(buf+offset, "\xAA\xAF\x03\x00\x02", 5);
         offset += 5;
         
-        for(int j = 0; j < 8; j++)
+        for(int j = 1; j <= 8; j++)
         {
             int ra = myrand();
             
             LOGGER_TRACE("pass "<< j <<": " << ra);
+            mysqlwork::GetInstance()->SetBoxPass(j, ra); 
             
             ra = htonl(ra);
             
@@ -133,9 +133,30 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
         buf[offset]=cksum;
         offset++;
         
-        write(fd, buf, offset);
-
-        close(fd);
+        fas::utils::WriteFile(file, buf, offset);
+    }
+    else if(command_.getCommand().compare("startput") == 0)
+    {
+        putflgfile = options_.getFlagPath() + command_.getCarid() + "_put.flg";
+        workflgfile = options_.getFlagPath() + command_.getCarid() + "_work.flg";
+        
+        struct stat st;
+        if (!fas::utils::GetFileStat(putflgfile, &st)) {
+            int putfd = open(putflgfile.c_str(), O_WRONLY|O_CREAT, 0777);
+            if (putfd >= 0) {
+                close(putfd);
+            }
+        }
+        
+        if (fas::utils::GetFileStat(workflgfile, &st)) {
+            int putfd = open(putflgfile.c_str(), O_WRONLY|O_CREAT, 0777);
+            if (putfd >= 0) {
+                close(putfd);
+            }
+        }
+    }
+    else if(command_.getCommand().compare("startwork") == 0)
+    {
     }
 
     struct stat st;
