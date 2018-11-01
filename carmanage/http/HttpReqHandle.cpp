@@ -109,31 +109,58 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
         workflgfile = options_.getFlagPath() + command_.getCarid() + "_work.flg";
         file = options_.getDataPath() + command_.getCarid() + "_getpass.txt";
         
-        unsigned char cksum = 0;
-        unsigned char buf[40];
-        int offset = 0;
-        memcpy(buf+offset, "\xAA\xAF\x03\x00\x02", 5);
-        offset += 5;
-        
-        for(int j = 1; j <= 8; j++)
-        {
-            int ra = myrand();
-            
-            LOGGER_TRACE("pass "<< j <<": " << ra);
-            mysqlwork::GetInstance()->SetBoxPass(j, ra); 
-            
-            ra = htonl(ra);
-            
-            memcpy(buf+offset, &ra, 4);
-            offset += 4;
+        struct stat st;
+        if (fas::utils::GetFileStat(workflgfile, &st)) {
+            unsigned char cksum = 0;
+            unsigned char buf[40];
+            int offset = 0;
+            memcpy(buf+offset, "\xAA\xAF\x03\x00\x02", 5);
+            offset += 5;
+
+            for(int j = 1; j <= 8; j++)
+            {
+                int ra = myrand();
+
+                LOGGER_TRACE("pass "<< j <<": " << ra);
+                mysqlwork::GetInstance()->SetBoxPass(j, ra); 
+
+                ra = htonl(ra);
+
+                memcpy(buf+offset, &ra, 4);
+                offset += 4;
+            }
+
+            for(int i = 0; i < offset; i++)
+                cksum += buf[i];
+            buf[offset]=cksum;
+            offset++;
+
+            fas::utils::WriteFile(file, buf, offset);
         }
-        
-        for(int i = 0; i < offset; i++)
-            cksum += buf[i];
-        buf[offset]=cksum;
-        offset++;
-        
-        fas::utils::WriteFile(file, buf, offset);
+        else if(fas::utils::GetFileStat(putflgfile, &st))
+        {
+            unsigned char cksum = 0;
+            unsigned char buf[40];
+            int offset = 0;
+            memcpy(buf+offset, "\xAA\xAF\x03\x00\x02", 5);
+            offset += 5;
+
+            for(int j = 1; j <= 8; j++)
+            {
+                int ra = 0;
+                mysqlwork::GetInstance()->SetBoxPass(j, ra); 
+
+                memcpy(buf+offset, &ra, 4);
+                offset += 4;
+            }
+
+            for(int i = 0; i < offset; i++)
+                cksum += buf[i];
+            buf[offset]=cksum;
+            offset++;
+
+            fas::utils::WriteFile(file, buf, offset);
+        }
     }
     else if(command_.getCommand().compare("startput") == 0)
     {
@@ -149,14 +176,35 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
         }
         
         if (fas::utils::GetFileStat(workflgfile, &st)) {
-            int putfd = open(putflgfile.c_str(), O_WRONLY|O_CREAT, 0777);
-            if (putfd >= 0) {
-                close(putfd);
-            }
+            remove(workflgfile.c_str());
         }
     }
     else if(command_.getCommand().compare("startwork") == 0)
     {
+        putflgfile = options_.getFlagPath() + command_.getCarid() + "_put.flg";
+        workflgfile = options_.getFlagPath() + command_.getCarid() + "_work.flg";
+        
+        struct stat st;
+        if (!fas::utils::GetFileStat(workflgfile, &st)) {
+            int workfd = open(putflgfile.c_str(), O_WRONLY|O_CREAT, 0777);
+            if (workfd >= 0) {
+                close(workfd);
+            }
+        }
+        
+        if (fas::utils::GetFileStat(putflgfile, &st)) {
+            remove(putflgfile.c_str());
+        }
+        
+        //查询路径，形成任务队列,map类
+    }
+    else if(command_.getCommand().compare("getpath") == 0)
+    {    
+        //从map类中获取任务,返回给arm.发送接收短信
+    }
+    else if(command_.getCommand().compare("workfinish") == 0)
+    {
+        //状态入表
     }
 
     struct stat st;
