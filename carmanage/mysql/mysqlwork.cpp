@@ -13,6 +13,7 @@
 
 #include "mysqlwork.h"
 #include "stdio.h"
+#include "stdlib.h"
 
 mysqlwork::mysqlwork() {
 }
@@ -68,6 +69,45 @@ bool mysqlwork::SetBoxPass(int boxid, int pass)
     }
     
     return true;
+}
+
+bool mysqlwork::SetTaskState(int Taskid)
+{
+    mysqlConnection *mysqlConn = pool->fetchConnection();
+    if(mysqlConn != NULL)
+    {
+        char sqlstr[100];
+        snprintf(sqlstr, 100, "update tp_task set status = '2',endtime = now() where id = %d", Taskid);    
+        
+        pool->executeSql(mysqlConn, sqlstr);
+        pool->recycleConnection(mysqlConn);
+    }
+    
+    return true;
+}
+
+int mysqlwork::queryTaskIDbyBoxID(int boxid)
+{
+    int ret = -1;
+    mysqlConnection *mysqlConn = pool->fetchConnection();
+    if(mysqlConn != NULL)
+    {
+        char sqlstr[100];
+        snprintf(sqlstr, 100, "SELECT id FROM `tp_task` WHERE carriage_num = '%d' ORDER BY starttime DESC LIMIT 1", boxid);    
+        
+        pool->executeSql(mysqlConn, sqlstr);
+        
+        MYSQL_RES *res_ptr = mysql_store_result(mysqlConn->sock);
+        if(res_ptr) { 
+            MYSQL_ROW sqlrow = mysql_fetch_row(res_ptr);
+            ret = atoi(sqlrow[0]);
+        }
+        
+        mysql_free_result(res_ptr); 
+        pool->recycleConnection(mysqlConn);
+    }
+    
+    return ret;    
 }
 
 /*

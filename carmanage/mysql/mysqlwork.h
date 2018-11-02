@@ -25,6 +25,8 @@ public:
     static void DestroyInstance();
     bool Init();
     bool SetBoxPass(int boxid, int pass);
+    bool SetTaskState(int Taskid);
+    int queryTaskIDbyBoxID(int boxid);
     
 private:
     static mysqlwork* m_pInstance;

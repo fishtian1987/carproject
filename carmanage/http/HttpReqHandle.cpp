@@ -90,7 +90,7 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
   if(aaa != std::string::npos)
   {
       strcmd = getpath.substr(aaa+1);
-      getpath = getpath.substr(1, aaa);
+      getpath = getpath.substr(1, aaa-1);
   }
 
   std::string file = options_.getServerPath() + getpath;
@@ -204,7 +204,10 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
     }
     else if(command_.getCommand().compare("workfinish") == 0)
     {
-        //状态入表
+        int boxid, taskid;
+        boxid = atoi(command_.getCarid().c_str());
+        taskid = mysqlwork::GetInstance()->queryTaskIDbyBoxID(boxid);
+        mysqlwork::GetInstance()->SetTaskState(taskid);
     }
 
     struct stat st;
