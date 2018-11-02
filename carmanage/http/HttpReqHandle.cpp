@@ -109,13 +109,14 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
         workflgfile = options_.getFlagPath() + command_.getCarid() + "_work.flg";
         file = options_.getDataPath() + command_.getCarid() + "_getpass.txt";
         
+        unsigned char cksum = 0;
+        unsigned char buf[40];
+        int offset = 0;
+        memcpy(buf+offset, "\xAA\xAF\x03\x00\x02", 5);
+        offset += 5;        
+        
         struct stat st;
         if (fas::utils::GetFileStat(workflgfile, &st)) {
-            unsigned char cksum = 0;
-            unsigned char buf[40];
-            int offset = 0;
-            memcpy(buf+offset, "\xAA\xAF\x03\x00\x02", 5);
-            offset += 5;
 
             for(int j = 1; j <= 8; j++)
             {
@@ -129,22 +130,9 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
                 memcpy(buf+offset, &ra, 4);
                 offset += 4;
             }
-
-            for(int i = 0; i < offset; i++)
-                cksum += buf[i];
-            buf[offset]=cksum;
-            offset++;
-
-            fas::utils::WriteFile(file, buf, offset);
         }
         else if(fas::utils::GetFileStat(putflgfile, &st))
         {
-            unsigned char cksum = 0;
-            unsigned char buf[40];
-            int offset = 0;
-            memcpy(buf+offset, "\xAA\xAF\x03\x00\x02", 5);
-            offset += 5;
-
             for(int j = 1; j <= 8; j++)
             {
                 int ra = 0;
@@ -153,14 +141,19 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
                 memcpy(buf+offset, &ra, 4);
                 offset += 4;
             }
-
-            for(int i = 0; i < offset; i++)
-                cksum += buf[i];
-            buf[offset]=cksum;
-            offset++;
-
-            fas::utils::WriteFile(file, buf, offset);
         }
+        else
+        {
+            memcpy(buf+offset, "ok", 2);
+            offset += 2;
+        }
+        
+        for(int i = 0; i < offset; i++)
+            cksum += buf[i];
+        buf[offset]=cksum;
+        offset++;
+
+        fas::utils::WriteFile(file, buf, offset);        
     }
     else if(command_.getCommand().compare("startput") == 0)
     {
@@ -208,6 +201,23 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
         boxid = atoi(command_.getCarid().c_str());
         taskid = mysqlwork::GetInstance()->queryTaskIDbyBoxID(boxid);
         mysqlwork::GetInstance()->SetTaskState(taskid);
+         
+        file = options_.getDataPath() + command_.getCarid() + "_workfinish.txt";       
+        unsigned char cksum = 0;
+        unsigned char buf[40];
+        int offset = 0;
+        memcpy(buf+offset, "\xAA\xAF\x03\x00\x03", 5);
+        offset += 5;    
+
+        memcpy(buf+offset, "ok", 2);
+        offset += 2;        
+        
+        for(int i = 0; i < offset; i++)
+            cksum += buf[i];
+        buf[offset]=cksum;
+        offset++;
+
+        fas::utils::WriteFile(file, buf, offset);              
     }
 
     struct stat st;

@@ -9,22 +9,20 @@
         <group>
             <file>file:/root/NetBeansProjects/carmanage/base/NetAddress.cpp</file>
             <file>file:/root/NetBeansProjects/carmanage/http/HttpCommon.cpp</file>
-            <file>file:/root/NetBeansProjects/carmanage/http/HttpRequest.cpp</file>
             <file>file:/root/NetBeansProjects/carmanage/http/HttpReqHandle.cpp</file>
             <file>file:/root/NetBeansProjects/carmanage/base/Epoll.cpp</file>
-            <file>file:/root/NetBeansProjects/carmanage/http/HttpServer.cpp</file>
             <file>file:/root/NetBeansProjects/carmanage/http/HttpCommand.cpp</file>
             <file>file:/root/NetBeansProjects/carmanage/base/TcpConnection.cpp</file>
-            <file>file:/root/NetBeansProjects/carmanage/http/HttpResponse.cpp</file>
-            <file>file:/root/NetBeansProjects/carmanage/http/HttpCommon.h</file>
+            <file>file:/root/NetBeansProjects/carmanage/mysql/mysqlwork.cpp</file>
+            <file>file:/root/NetBeansProjects/carmanage/mysql/mysql_connection_pool.cpp</file>
             <file>file:/root/NetBeansProjects/carmanage/base/Mutex.cpp</file>
-            <file>file:/root/NetBeansProjects/carmanage/utils/utilstring.cpp</file>
             <file>file:/root/NetBeansProjects/carmanage/main.cpp</file>
             <file>file:/root/NetBeansProjects/carmanage/base/MutexLocker.cpp</file>
-            <file>file:/root/NetBeansProjects/carmanage/http/HttpCommand.h</file>
-            <file>file:/root/NetBeansProjects/carmanage/http/HttpServer.h</file>
+            <file>file:/root/NetBeansProjects/carmanage/utils/smswork.h</file>
             <file>file:/root/NetBeansProjects/carmanage/http/HttpReqHandle.h</file>
-            <file>file:/root/NetBeansProjects/carmanage/http/HttpRequest.h</file>
+            <file>file:/root/NetBeansProjects/carmanage/utils/utilfile.h</file>
+            <file>file:/root/NetBeansProjects/carmanage/utils/utilfile.cpp</file>
+            <file>file:/root/NetBeansProjects/carmanage/utils/smswork.cpp</file>
         </group>
     </open-files>
 </project-private>

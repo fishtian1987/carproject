@@ -79,6 +79,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/mdm/memProtocol.o \
 	${OBJECTDIR}/mysql/mysql_connection_pool.o \
 	${OBJECTDIR}/mysql/mysqlwork.o \
+	${OBJECTDIR}/utils/smswork.o \
 	${OBJECTDIR}/utils/utilfile.o \
 	${OBJECTDIR}/utils/utilstring.o
 
@@ -97,7 +98,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lglog -lpthread -ljsoncpp -lz -lm -ldl /www/server/mysql/lib/libmysqlclient.a
+LDLIBSOPTIONS=-lglog -lpthread -ljsoncpp -lz -lm -ldl `pkg-config --libs libcurl` /www/server/mysql/lib/libmysqlclient.a  
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -112,232 +113,237 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/carmanage: ${OBJECTFILES}
 ${OBJECTDIR}/base/Buffer.o: base/Buffer.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Buffer.o base/Buffer.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Buffer.o base/Buffer.cpp
 
 ${OBJECTDIR}/base/Condition.o: base/Condition.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Condition.o base/Condition.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Condition.o base/Condition.cpp
 
 ${OBJECTDIR}/base/Epoll.o: base/Epoll.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Epoll.o base/Epoll.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Epoll.o base/Epoll.cpp
 
 ${OBJECTDIR}/base/EventLoop.o: base/EventLoop.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/EventLoop.o base/EventLoop.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/EventLoop.o base/EventLoop.cpp
 
 ${OBJECTDIR}/base/EventLoopBucket.o: base/EventLoopBucket.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/EventLoopBucket.o base/EventLoopBucket.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/EventLoopBucket.o base/EventLoopBucket.cpp
 
 ${OBJECTDIR}/base/Events.o: base/Events.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Events.o base/Events.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Events.o base/Events.cpp
 
 ${OBJECTDIR}/base/Handle.o: base/Handle.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Handle.o base/Handle.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Handle.o base/Handle.cpp
 
 ${OBJECTDIR}/base/Log.o: base/Log.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Log.o base/Log.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Log.o base/Log.cpp
 
 ${OBJECTDIR}/base/Mutex.o: base/Mutex.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Mutex.o base/Mutex.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Mutex.o base/Mutex.cpp
 
 ${OBJECTDIR}/base/MutexLocker.o: base/MutexLocker.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/MutexLocker.o base/MutexLocker.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/MutexLocker.o base/MutexLocker.cpp
 
 ${OBJECTDIR}/base/NetAddress.o: base/NetAddress.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/NetAddress.o base/NetAddress.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/NetAddress.o base/NetAddress.cpp
 
 ${OBJECTDIR}/base/Poll.o: base/Poll.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Poll.o base/Poll.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Poll.o base/Poll.cpp
 
 ${OBJECTDIR}/base/Poller.o: base/Poller.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Poller.o base/Poller.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Poller.o base/Poller.cpp
 
 ${OBJECTDIR}/base/PthreadSem.o: base/PthreadSem.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/PthreadSem.o base/PthreadSem.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/PthreadSem.o base/PthreadSem.cpp
 
 ${OBJECTDIR}/base/Rwlock.o: base/Rwlock.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Rwlock.o base/Rwlock.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Rwlock.o base/Rwlock.cpp
 
 ${OBJECTDIR}/base/SigIgnore.o: base/SigIgnore.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/SigIgnore.o base/SigIgnore.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/SigIgnore.o base/SigIgnore.cpp
 
 ${OBJECTDIR}/base/Socket.o: base/Socket.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Socket.o base/Socket.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Socket.o base/Socket.cpp
 
 ${OBJECTDIR}/base/TcpConnBucket.o: base/TcpConnBucket.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/TcpConnBucket.o base/TcpConnBucket.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/TcpConnBucket.o base/TcpConnBucket.cpp
 
 ${OBJECTDIR}/base/TcpConnection.o: base/TcpConnection.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/TcpConnection.o base/TcpConnection.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/TcpConnection.o base/TcpConnection.cpp
 
 ${OBJECTDIR}/base/TcpServer.o: base/TcpServer.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/TcpServer.o base/TcpServer.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/TcpServer.o base/TcpServer.cpp
 
 ${OBJECTDIR}/base/Thread.o: base/Thread.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Thread.o base/Thread.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Thread.o base/Thread.cpp
 
 ${OBJECTDIR}/base/ThreadPool.o: base/ThreadPool.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/ThreadPool.o base/ThreadPool.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/ThreadPool.o base/ThreadPool.cpp
 
 ${OBJECTDIR}/base/Timer.o: base/Timer.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Timer.o base/Timer.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Timer.o base/Timer.cpp
 
 ${OBJECTDIR}/base/TimerHeap.o: base/TimerHeap.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/TimerHeap.o base/TimerHeap.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/TimerHeap.o base/TimerHeap.cpp
 
 ${OBJECTDIR}/base/TimersScheduler.o: base/TimersScheduler.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/TimersScheduler.o base/TimersScheduler.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/TimersScheduler.o base/TimersScheduler.cpp
 
 ${OBJECTDIR}/base/Timestamp.o: base/Timestamp.cpp
 	${MKDIR} -p ${OBJECTDIR}/base
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Timestamp.o base/Timestamp.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/base/Timestamp.o base/Timestamp.cpp
 
 ${OBJECTDIR}/http/HttpCommand.o: http/HttpCommand.cpp
 	${MKDIR} -p ${OBJECTDIR}/http
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/http/HttpCommand.o http/HttpCommand.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/http/HttpCommand.o http/HttpCommand.cpp
 
 ${OBJECTDIR}/http/HttpCommon.o: http/HttpCommon.cpp
 	${MKDIR} -p ${OBJECTDIR}/http
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/http/HttpCommon.o http/HttpCommon.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/http/HttpCommon.o http/HttpCommon.cpp
 
 ${OBJECTDIR}/http/HttpReqHandle.o: http/HttpReqHandle.cpp
 	${MKDIR} -p ${OBJECTDIR}/http
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/http/HttpReqHandle.o http/HttpReqHandle.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/http/HttpReqHandle.o http/HttpReqHandle.cpp
 
 ${OBJECTDIR}/http/HttpRequest.o: http/HttpRequest.cpp
 	${MKDIR} -p ${OBJECTDIR}/http
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/http/HttpRequest.o http/HttpRequest.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/http/HttpRequest.o http/HttpRequest.cpp
 
 ${OBJECTDIR}/http/HttpResponse.o: http/HttpResponse.cpp
 	${MKDIR} -p ${OBJECTDIR}/http
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/http/HttpResponse.o http/HttpResponse.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/http/HttpResponse.o http/HttpResponse.cpp
 
 ${OBJECTDIR}/http/HttpServer.o: http/HttpServer.cpp
 	${MKDIR} -p ${OBJECTDIR}/http
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/http/HttpServer.o http/HttpServer.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/http/HttpServer.o http/HttpServer.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/mdm/ConsistencyHash.o: mdm/ConsistencyHash.cpp
 	${MKDIR} -p ${OBJECTDIR}/mdm
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/ConsistencyHash.o mdm/ConsistencyHash.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/ConsistencyHash.o mdm/ConsistencyHash.cpp
 
 ${OBJECTDIR}/mdm/HashNode.o: mdm/HashNode.cpp
 	${MKDIR} -p ${OBJECTDIR}/mdm
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/HashNode.o mdm/HashNode.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/HashNode.o mdm/HashNode.cpp
 
 ${OBJECTDIR}/mdm/Md5.o: mdm/Md5.cpp
 	${MKDIR} -p ${OBJECTDIR}/mdm
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/Md5.o mdm/Md5.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/Md5.o mdm/Md5.cpp
 
 ${OBJECTDIR}/mdm/MdmInfo.o: mdm/MdmInfo.cpp
 	${MKDIR} -p ${OBJECTDIR}/mdm
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/MdmInfo.o mdm/MdmInfo.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/MdmInfo.o mdm/MdmInfo.cpp
 
 ${OBJECTDIR}/mdm/MdmInfoLoader.o: mdm/MdmInfoLoader.cpp
 	${MKDIR} -p ${OBJECTDIR}/mdm
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/MdmInfoLoader.o mdm/MdmInfoLoader.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/MdmInfoLoader.o mdm/MdmInfoLoader.cpp
 
 ${OBJECTDIR}/mdm/mcacheTask.o: mdm/mcacheTask.cpp
 	${MKDIR} -p ${OBJECTDIR}/mdm
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/mcacheTask.o mdm/mcacheTask.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/mcacheTask.o mdm/mcacheTask.cpp
 
 ${OBJECTDIR}/mdm/mcacheTaskHandle.o: mdm/mcacheTaskHandle.cpp
 	${MKDIR} -p ${OBJECTDIR}/mdm
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/mcacheTaskHandle.o mdm/mcacheTaskHandle.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/mcacheTaskHandle.o mdm/mcacheTaskHandle.cpp
 
 ${OBJECTDIR}/mdm/mcacheTaskServer.o: mdm/mcacheTaskServer.cpp
 	${MKDIR} -p ${OBJECTDIR}/mdm
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/mcacheTaskServer.o mdm/mcacheTaskServer.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/mcacheTaskServer.o mdm/mcacheTaskServer.cpp
 
 ${OBJECTDIR}/mdm/memProtocol.o: mdm/memProtocol.cpp
 	${MKDIR} -p ${OBJECTDIR}/mdm
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/memProtocol.o mdm/memProtocol.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mdm/memProtocol.o mdm/memProtocol.cpp
 
 ${OBJECTDIR}/mysql/mysql_connection_pool.o: mysql/mysql_connection_pool.cpp
 	${MKDIR} -p ${OBJECTDIR}/mysql
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mysql/mysql_connection_pool.o mysql/mysql_connection_pool.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mysql/mysql_connection_pool.o mysql/mysql_connection_pool.cpp
 
 ${OBJECTDIR}/mysql/mysqlwork.o: mysql/mysqlwork.cpp
 	${MKDIR} -p ${OBJECTDIR}/mysql
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mysql/mysqlwork.o mysql/mysqlwork.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mysql/mysqlwork.o mysql/mysqlwork.cpp
+
+${OBJECTDIR}/utils/smswork.o: utils/smswork.cpp
+	${MKDIR} -p ${OBJECTDIR}/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/utils/smswork.o utils/smswork.cpp
 
 ${OBJECTDIR}/utils/utilfile.o: utils/utilfile.cpp
 	${MKDIR} -p ${OBJECTDIR}/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/utils/utilfile.o utils/utilfile.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/utils/utilfile.o utils/utilfile.cpp
 
 ${OBJECTDIR}/utils/utilstring.o: utils/utilstring.cpp
 	${MKDIR} -p ${OBJECTDIR}/utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/utils/utilstring.o utils/utilstring.cpp
+	$(COMPILE.cc) -O2 -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql `pkg-config --cflags libcurl` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/utils/utilstring.o utils/utilstring.cpp
 
 # Subprojects
 .build-subprojects:
