@@ -185,6 +185,12 @@ void MainWindow::analysis4GData(QByteArray &data)
     case Atk::C_PASS_4G:{
         dataPro->sendPasstoGPS(data.mid(1));
     }break;
+    case Atk::C_WORKFINISH_4G:{
+
+    }
+    case Atk::C_GETPATH_4G:{
+
+    }
     default:break;
     }
 }

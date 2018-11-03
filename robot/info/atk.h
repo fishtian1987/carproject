@@ -45,7 +45,8 @@ public:
     enum Cmd4G_Type{
         C_POINT_4G=0x01,
         C_PASS_4G=0x02,
-        C_CARSTATE_4G=0x03
+        C_WORKFINISH_4G=0x03,
+        C_GETPATH_4G=0x04
     };
 
     enum CmdGPS_Type{
