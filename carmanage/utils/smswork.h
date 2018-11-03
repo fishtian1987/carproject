@@ -14,27 +14,29 @@
 #ifndef SMSWORK_H
 #define SMSWORK_H
 
+#include <curl/curl.h>
+
 namespace fas {
 
 namespace utils {
 
-void send_data(char *url,char *data);    
+void send_data(const char *url,char *data, CURL *curl);    
 /**
 * 查账户信息
 */
-void get_user(char *apikey);
+void get_user();
 /**
 * 使用智能匹配模板接口发短信
 */
-void send_sms(char *apikey, char *mobile, char *text);
+void send_sms(char *mobile, char *text);
 /**
 * 指定模板单发
 */
-void send_tpl_sms(char *apikey, char *mobile, int tpl_id, char *tpl_value);
+void send_tpl_sms(char *mobile, int tpl_id, char *tpl_value);
 /**
 * 发送语音验证码
 */
-void send_voice(char *apikey, char *mobile, int code);
+void send_voice(char *mobile, int code);
 
 }
 

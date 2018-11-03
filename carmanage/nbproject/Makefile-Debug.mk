@@ -80,6 +80,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/mysql/mysql_connection_pool.o \
 	${OBJECTDIR}/mysql/mysqlwork.o \
 	${OBJECTDIR}/utils/smswork.o \
+	${OBJECTDIR}/utils/taskwork.o \
 	${OBJECTDIR}/utils/utilfile.o \
 	${OBJECTDIR}/utils/utilstring.o
 
@@ -334,6 +335,11 @@ ${OBJECTDIR}/utils/smswork.o: utils/smswork.cpp
 	${MKDIR} -p ${OBJECTDIR}/utils
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/utils/smswork.o utils/smswork.cpp
+
+${OBJECTDIR}/utils/taskwork.o: utils/taskwork.cpp
+	${MKDIR} -p ${OBJECTDIR}/utils
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iutils -Ibase -Ihttp -Imdm -I/www/server/mysql/include -Imysql -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/utils/taskwork.o utils/taskwork.cpp
 
 ${OBJECTDIR}/utils/utilfile.o: utils/utilfile.cpp
 	${MKDIR} -p ${OBJECTDIR}/utils

@@ -10,6 +10,7 @@
 #include <TcpConnection.h>
 #include <Log.h>
 #include "mysqlwork.h"
+#include "smswork.h"
 
 
 #include <boost/core/ignore_unused.hpp>
@@ -189,11 +190,46 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
             remove(putflgfile.c_str());
         }
         
-        //查询路径，形成任务队列,map类
+        for(int j = 1; j <= 8; j++)
+        {
+            fas::utils::taskinfo *onetask = new fas::utils::taskinfo();
+            int bFind = mysqlwork::GetInstance()->queryTaskInfobyBoxID(j, onetask);
+            if(bFind)
+            {
+            }
+            else
+            {
+                delete onetask;
+            }
+        }
     }
     else if(command_.getCommand().compare("getpath") == 0)
     {    
-        //从map类中获取任务,返回给arm.发送接收短信
+        int boxid;
+        char smstext[100], mobile[20], pass[20];
+        
+        boxid = atoi(command_.getCarid().c_str());
+        mysqlwork::GetInstance()->queryPassbyBoxID(boxid, pass, 20);
+        sprintf(smstext, "【神马同城】您的验证码是%s", pass);
+        
+        fas::utils::send_sms(mobile, smstext);
+         
+        file = options_.getDataPath() + command_.getCarid() + "_getpath.txt";       
+        unsigned char cksum = 0;
+        unsigned char buf[40];
+        int offset = 0;
+        memcpy(buf+offset, "\xAA\xAF\x03\x00\x04", 5);
+        offset += 5;    
+
+        memcpy(buf+offset, "ok", 2);
+        offset += 2;        
+        
+        for(int i = 0; i < offset; i++)
+            cksum += buf[i];
+        buf[offset]=cksum;
+        offset++;
+
+        fas::utils::WriteFile(file, buf, offset);
     }
     else if(command_.getCommand().compare("workfinish") == 0)
     {
@@ -218,6 +254,14 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
         offset++;
 
         fas::utils::WriteFile(file, buf, offset);              
+    }
+    else if(command_.getCommand().compare("testtextsms") == 0)
+    {
+        fas::utils::send_sms("15898731554", "【神马同城】您的验证码是123456");
+    }
+    else if(command_.getCommand().compare("testvoicesms") == 0)
+    {
+        fas::utils::send_voice("15898731554", 123456);
     }
 
     struct stat st;

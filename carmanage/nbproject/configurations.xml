@@ -104,6 +104,8 @@
     <logicalFolder name="f4" displayName="utils" projectFiles="true">
       <itemPath>utils/smswork.cpp</itemPath>
       <itemPath>utils/smswork.h</itemPath>
+      <itemPath>utils/taskwork.cpp</itemPath>
+      <itemPath>utils/taskwork.h</itemPath>
       <itemPath>utils/utilfile.cpp</itemPath>
       <itemPath>utils/utilfile.h</itemPath>
       <itemPath>utils/utilstring.cpp</itemPath>
@@ -351,6 +353,10 @@
       </item>
       <item path="utils/smswork.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="utils/taskwork.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils/taskwork.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="utils/utilfile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="utils/utilfile.h" ex="false" tool="3" flavor2="0">
@@ -396,7 +402,7 @@
             <linkerLibLibItem>z</linkerLibLibItem>
             <linkerLibLibItem>m</linkerLibLibItem>
             <linkerLibLibItem>dl</linkerLibLibItem>
-            <linkerOptionItem>`pkg-config --libs libcurl`</linkerOptionItem>
+            <linkerLibLibItem>curl</linkerLibLibItem>
             <linkerLibFileItem>/www/server/mysql/lib/libmysqlclient.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
@@ -590,6 +596,10 @@
       <item path="utils/smswork.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="utils/smswork.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils/taskwork.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="utils/taskwork.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="utils/utilfile.cpp" ex="false" tool="1" flavor2="0">
       </item>

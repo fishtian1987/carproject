@@ -14,6 +14,7 @@
 #include "mysqlwork.h"
 #include "stdio.h"
 #include "stdlib.h"
+#include "string.h"
 
 mysqlwork::mysqlwork() {
 }
@@ -71,13 +72,15 @@ bool mysqlwork::SetBoxPass(int boxid, int pass)
     return true;
 }
 
+
+
 bool mysqlwork::SetTaskState(int Taskid)
 {
     mysqlConnection *mysqlConn = pool->fetchConnection();
     if(mysqlConn != NULL)
     {
         char sqlstr[100];
-        snprintf(sqlstr, 100, "update tp_task set status = '2',endtime = now() where id = %d", Taskid);    
+        snprintf(sqlstr, 100, "update tp_task set status = '2',endtime = UNIX_TIMESTAMP(now()) where id = %d", Taskid);    
         
         pool->executeSql(mysqlConn, sqlstr);
         pool->recycleConnection(mysqlConn);
@@ -108,6 +111,60 @@ int mysqlwork::queryTaskIDbyBoxID(int boxid)
     }
     
     return ret;    
+}
+
+bool mysqlwork::queryPassbyBoxID(int boxid, char *pass, int len)
+{
+    mysqlConnection *mysqlConn = pool->fetchConnection();
+    if(mysqlConn != NULL)
+    {
+        char sqlstr[100];
+        snprintf(sqlstr, 100, "SELECT pass FROM `tp_car_box` WHERE id = '%d'", boxid);    
+        
+        pool->executeSql(mysqlConn, sqlstr);
+        
+        MYSQL_RES *res_ptr = mysql_store_result(mysqlConn->sock);
+        if(res_ptr) { 
+            MYSQL_ROW sqlrow = mysql_fetch_row(res_ptr);
+            strcpy(pass, sqlrow[0]);
+        }
+        
+        mysql_free_result(res_ptr); 
+        pool->recycleConnection(mysqlConn);
+    }
+    
+    return true;       
+}
+
+bool mysqlwork::queryTaskInfobyBoxID(int boxid, fas::utils::taskinfo *oneinfo)
+{
+    bool bFind = false;
+    mysqlConnection *mysqlConn = pool->fetchConnection();
+    if(mysqlConn != NULL)
+    {
+        char sqlstr[100];
+        snprintf(sqlstr, 100, "SELECT id,consignee_mobile,distribution_point_id,disname FROM `tp_task` WHERE carriage_num = '%d' ORDER BY starttime DESC LIMIT 1", boxid);    
+        
+        pool->executeSql(mysqlConn, sqlstr);
+        
+        MYSQL_RES *res_ptr = mysql_store_result(mysqlConn->sock);
+        if(res_ptr) { 
+            int j = mysql_num_fields(res_ptr);          
+            if (j == 4) {
+                MYSQL_ROW sqlrow = mysql_fetch_row(res_ptr);
+                oneinfo->settaskid(sqlrow[0]);
+                oneinfo->setmobile(sqlrow[1]);
+                oneinfo->settaskid(sqlrow[2]);
+                oneinfo->setdisname(sqlrow[3]);
+                bFind = true;
+            }
+        }
+        
+        mysql_free_result(res_ptr); 
+        pool->recycleConnection(mysqlConn);
+    }
+    
+    return bFind;    
 }
 
 /*

@@ -15,6 +15,7 @@
 #define MYSQLWORK_H
 
 #include "mysql_connection_pool.h"
+#include "taskwork.h"
 
 class mysqlwork {
 public:
@@ -27,6 +28,8 @@ public:
     bool SetBoxPass(int boxid, int pass);
     bool SetTaskState(int Taskid);
     int queryTaskIDbyBoxID(int boxid);
+    bool queryPassbyBoxID(int boxid, char *pass, int len);
+    bool queryTaskInfobyBoxID(int boxid, fas::utils::taskinfo *oneinfo);
     
 private:
     static mysqlwork* m_pInstance;

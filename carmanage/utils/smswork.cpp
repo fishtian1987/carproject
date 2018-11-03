@@ -13,7 +13,6 @@
 
 #include "smswork.h"
 #include <stdio.h>
-#include <curl/curl.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
@@ -29,7 +28,7 @@ bingone
 // 发送语音验证码内容
 int code = 1234;
 
-void send_data(const char *url,char *data, CURL *curl)
+void fas::utils::send_data(const char *url,char *data, CURL *curl)
 { 
     // specify the url
     curl_easy_setopt(curl, CURLOPT_URL, url);
@@ -41,7 +40,7 @@ void send_data(const char *url,char *data, CURL *curl)
 /**
 * 查账户信息
 */
-void get_user()
+void fas::utils::get_user()
 {
     CURL *curl;
     curl = curl_easy_init();
@@ -64,7 +63,7 @@ void get_user()
 /**
 * 使用智能匹配模板接口发短信
 */
-void send_sms(char *mobile, char *text)
+void fas::utils::send_sms(char *mobile, char *text)
 {
     CURL *curl;    
     curl = curl_easy_init();
@@ -87,7 +86,7 @@ void send_sms(char *mobile, char *text)
 /**
 * 指定模板单发
 */
-void send_tpl_sms(char *mobile, int tpl_id, char *tpl_value)
+void fas::utils::send_tpl_sms(char *mobile, int tpl_id, char *tpl_value)
 {
     CURL *curl;    
     curl = curl_easy_init();
@@ -111,7 +110,7 @@ void send_tpl_sms(char *mobile, int tpl_id, char *tpl_value)
 /**
 * 发送语音验证码
 */
-void send_voice(char *mobile, int code)
+void fas::utils::send_voice(char *mobile, int code)
 {
     CURL *curl;    
     curl = curl_easy_init();
