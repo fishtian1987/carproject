@@ -30,6 +30,7 @@ public:
     int queryTaskIDbyBoxID(int boxid);
     bool queryPassbyBoxID(int boxid, char *pass, int len);
     bool queryTaskInfobyBoxID(int boxid, fas::utils::taskinfo *oneinfo);
+    int queryDisIDbyDisName(const char *DisName);
     
 private:
     static mysqlwork* m_pInstance;

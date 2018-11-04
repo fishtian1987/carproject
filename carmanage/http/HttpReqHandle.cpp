@@ -11,6 +11,7 @@
 #include <Log.h>
 #include "mysqlwork.h"
 #include "smswork.h"
+#include <vector>
 
 
 #include <boost/core/ignore_unused.hpp>
@@ -180,7 +181,7 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
         
         struct stat st;
         if (!fas::utils::GetFileStat(workflgfile, &st)) {
-            int workfd = open(putflgfile.c_str(), O_WRONLY|O_CREAT, 0777);
+            int workfd = open(workflgfile.c_str(), O_WRONLY|O_CREAT, 0777);
             if (workfd >= 0) {
                 close(workfd);
             }
@@ -190,18 +191,24 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
             remove(putflgfile.c_str());
         }
         
+        std::vector<int> disidarr;
         for(int j = 1; j <= 8; j++)
         {
             fas::utils::taskinfo *onetask = new fas::utils::taskinfo();
             int bFind = mysqlwork::GetInstance()->queryTaskInfobyBoxID(j, onetask);
             if(bFind)
             {
+                int disid = mysqlwork::GetInstance()->queryDisIDbyDisName(onetask->getdisname().c_str());
+                onetask->setdisid(disid);
+                disidarr.push_back(disid);
             }
             else
             {
                 delete onetask;
             }
         }
+        
+        
     }
     else if(command_.getCommand().compare("getpath") == 0)
     {    
@@ -211,6 +218,7 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
         boxid = atoi(command_.getCarid().c_str());
         mysqlwork::GetInstance()->queryPassbyBoxID(boxid, pass, 20);
         sprintf(smstext, "【神马同城】您的验证码是%s", pass);
+        strcpy(mobile, "15898731554");
         
         fas::utils::send_sms(mobile, smstext);
          
@@ -221,8 +229,8 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
         memcpy(buf+offset, "\xAA\xAF\x03\x00\x04", 5);
         offset += 5;    
 
-        memcpy(buf+offset, "ok", 2);
-        offset += 2;        
+        memcpy(buf+offset, "41,42", 5);
+        offset += 5;        
         
         for(int i = 0; i < offset; i++)
             cksum += buf[i];
@@ -257,11 +265,11 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
     }
     else if(command_.getCommand().compare("testtextsms") == 0)
     {
-        fas::utils::send_sms("15898731554", "【神马同城】您的验证码是123456");
+        fas::utils::send_sms((char *)command_.getMobile().c_str(), "【神马同城】您的验证码是123456");
     }
     else if(command_.getCommand().compare("testvoicesms") == 0)
     {
-        fas::utils::send_voice("15898731554", 123456);
+        fas::utils::send_voice((char *)command_.getMobile().c_str(), 123456);
     }
 
     struct stat st;

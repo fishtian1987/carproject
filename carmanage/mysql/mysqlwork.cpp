@@ -167,6 +167,30 @@ bool mysqlwork::queryTaskInfobyBoxID(int boxid, fas::utils::taskinfo *oneinfo)
     return bFind;    
 }
 
+int mysqlwork::queryDisIDbyDisName(const char *DisName)
+{
+    int ret = -1;
+    mysqlConnection *mysqlConn = pool->fetchConnection();
+    if(mysqlConn != NULL)
+    {
+        char sqlstr[100];
+        snprintf(sqlstr, 100, "SELECT id FROM `tp_distribution_point` WHERE name = '%s' LIMIT 1", DisName);    
+        
+        pool->executeSql(mysqlConn, sqlstr);
+        
+        MYSQL_RES *res_ptr = mysql_store_result(mysqlConn->sock);
+        if(res_ptr) { 
+            MYSQL_ROW sqlrow = mysql_fetch_row(res_ptr);
+            ret = atoi(sqlrow[0]);
+        }
+        
+        mysql_free_result(res_ptr); 
+        pool->recycleConnection(mysqlConn);
+    }
+    
+    return ret;    
+}
+
 /*
     int num = 100;
     MYSQL_RES *res_ptr;

@@ -108,6 +108,7 @@ void fas::TcpConnection::handleRead(const fas::Events& revents,
     int err = 0;
     ssize_t ret = readBuffer_->readFd(revents.getFd(), &err);
     if (ret == 0) {
+        LOGGER_DEBUG("readBuffer_.readFd return 0");
         if(!closeing_) {
             handleClose(revents, time);
         }

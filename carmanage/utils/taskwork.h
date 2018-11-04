@@ -31,6 +31,9 @@ public:
     void setmobile(const char *mobile) {mobile_ = mobile;}
     void setdisid(const char *disid) {disid_ = atoi(disid);}
     void setdisname(const char *disname) {disname_ =  disname;}
+    void setdisid(int ndisid) {disid_ = ndisid;}
+    
+    std::string getdisname() const;
     
 private:
     int taskid_;
@@ -38,6 +41,35 @@ private:
     int disid_;
     std::string disname_;
 };
+
+class cartask
+{
+public:
+    cartask();
+    cartask(const cartask& orig);
+    virtual ~cartask();
+    
+private:
+    std::map<int, taskinfo> taskinfomap_;
+    
+};
+
+class taskmap:public std::map<int, cartask*>
+{
+public:
+    taskmap();
+    virtual ~taskmap();
+    bool AddTask(int carid, cartask* onetask);
+    cartask * CheckTask(int carid);
+    
+private:
+    bool getallow(long &hashallow);
+    bool releaseallow(long &hashallow);
+
+    long g_addallow; 
+};
+
+typedef taskmap::iterator TaskMapIterator;
 
 }
 

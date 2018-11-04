@@ -20,7 +20,8 @@
 fas::http::HttpCommand::HttpCommand() :
     command_(""), 
     carid_(""), 
-    boxid_("") {
+    boxid_(""),
+    mobile_("") {
 }
 
 fas::http::HttpCommand::HttpCommand(const HttpCommand& orig) {
@@ -57,6 +58,10 @@ bool fas::http::HttpCommand::analyseHttpCommand(std::string strCmd)
           {
               this->boxid_ = fields[1];
           }
+          else if(fields[0].compare("mobile") == 0)
+          {
+              this->mobile_ = fields[1];
+          }
       }
 }
 
@@ -70,6 +75,10 @@ std::string fas::http::HttpCommand::getCarid() const{
 
 std::string fas::http::HttpCommand::getBox() const{
     return this->boxid_;
+}
+
+std::string fas::http::HttpCommand::getMobile() const{
+    return this->mobile_;
 }
         
 

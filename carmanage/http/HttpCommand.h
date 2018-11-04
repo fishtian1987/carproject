@@ -28,10 +28,12 @@ namespace fas {
                 std::string getCommand() const;
                 std::string getCarid() const;
                 std::string getBox() const;
+                std::string getMobile() const;
             private:
                 std::string command_;
                 std::string carid_;
                 std::string boxid_;
+                std::string mobile_;
         };
 
     }
