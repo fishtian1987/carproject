@@ -189,10 +189,86 @@ void MainWindow::analysis4GData(QByteArray &data)
 
     }
     case Atk::C_GETPATH_4G:{
-
+        SetPoint(data.mid(1));
     }
     default:break;
     }
+}
+
+QStringList MainWindow::autoSolveRoute( int sd, int ed)
+{
+    QStringList strlist;
+    int i=0,j=0;
+    DatabaseHelper *dao;
+    dao=DatabaseHelper::instance();
+    unsigned short n=dao->queryVertexNumSqlDatabase();
+    unsigned short ** graph=new unsigned short *[n];
+    for(i=0;i<n;i++)
+        graph[i]=new unsigned short[n];
+
+    for(i=0;i<n;i++)
+        for(j=0;j<n;j++)
+            if(i==j)graph[i][j]=0;
+            else graph[i][j]=Atk::INF;
+
+    QList<VertexWeight> list=dao->queryVertexWeightSqlDatabase();
+    for(i=0;i<list.size();i++){
+        graph[ list.at(i).fistVertex][list.at(i).secondVertex]=list.at(i).weight;
+        graph[list.at(i).secondVertex][list.at(i).fistVertex]=list.at(i).weight;
+    }
+
+    strlist=Utils::solveRoute(graph,n,sd,ed);
+    for(i=0;i<n;i++)
+    {
+        delete [] graph[i];
+        graph[i]=NULL;
+    }
+    delete [] graph;
+    graph=NULL;
+
+    return strlist;
+}
+
+void MainWindow::SetPoint(QString Pointstr)
+{
+    QMessageBox::information(NULL, "Title", Pointstr, QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+    unsigned short i;
+    QStringList list;
+    DatabaseHelper *dao;
+    dao=DatabaseHelper::instance();
+    QStringList listVertex=dao->queryOneStringSqlDatabase("id","vertex");
+    QStringList list0 = Pointstr.split(',', QString::SkipEmptyParts);
+    for(i=0;i<list0.size();i++){
+        if(!listVertex.contains(list0.at(i))){
+            return;
+        }
+    }
+    listVertex.clear();
+    list0=autoSolveRoute(list0.at(0).toInt(),list0.at(1).toInt());
+
+    QString str;
+    for(i=1;i<list0.size();i++)
+     str+=" "+list0.at(i);
+
+    HintDialog dialog(this);
+    dialog.setText("<h2><font color=red>规划路经</font></h2>"
+                "<p><font color=blue>距离</font>"
+                "<p><font color=blue>"+list0.at(0)+"</font>"
+                "<p><font color=blue>路经</font>"
+                "<p><font color=blue>"+str+"</font>");
+    dialog.exec();
+
+    for(i=1;i<list0.size()-1;i++)
+        list.append(list0.at(i)+"_"+list0.at(i+1));
+    for(i=0;i<list.size();i++)
+        qDebug()<<list.at(i);
+
+    dao->setQueryTableNames(list);
+
+    Utils::Delay_MSec(5000);
+    SetSendDataState(Atk::C_ROUTE_BIAS);
+    dao->ResetDefaultIndex();
+    addTransaction(new queryDBTransaction(0));
 }
 
 void MainWindow::analysisGPSData(QByteArray &data)

@@ -55,6 +55,8 @@ private:
     void SetSendDataState(uint8_t state);
     uint8_t GetSendDataState();
     void ResetSendDataState();
+    void SetPoint(QString Pointstr);
+    QStringList autoSolveRoute( int sd, int ed);
 
 private:
     Ui::MainWindow *ui;

@@ -71,6 +71,7 @@ void DataProtocol::sendRoutesData(QList<RouteInfo> &data)
 
 void DataProtocol::sendPasstoGPS(QByteArray buf)
 {
+    QMessageBox::information(NULL, "Title", "Content", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
     if(memcpy(buf.data(), "ok", 2) != 0)
     {
         Message msg;
@@ -80,6 +81,11 @@ void DataProtocol::sendPasstoGPS(QByteArray buf)
         QMessageBox::information(NULL, "Title", "Content", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 
         package->packGPSMsg(&msg);
+
+        if(memcpy(buf.data(), "\x00\x00\x00\x00", 4) !=0)
+        {
+            getPathby4G();
+        }
     }
 }
 
@@ -100,6 +106,17 @@ void DataProtocol::sendPasstoGPS()
 void DataProtocol::getPassby4G()
 {
     package->pack4gMsg("cmd=getpass&carid=1");
+}
+
+void DataProtocol::getPathby4G()
+{
+    QMessageBox::information(NULL, "Title", "getpath", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+    package->pack4gMsg("cmd=getpath&carid=1");
+}
+
+void DataProtocol::sendWorkStateby4G()
+{
+    package->pack4gMsg("cmd=workfinish&carid=1");
 }
 
 

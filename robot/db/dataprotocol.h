@@ -20,6 +20,8 @@ public:
     void sendPasstoGPS();
     void sendPasstoGPS(QByteArray buf);
     void getPassby4G();
+    void getPathby4G();
+    void sendWorkStateby4G();
 private:
     long long lat;
     long long log;
