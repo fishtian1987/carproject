@@ -9,8 +9,8 @@
 #include <HttpCommon.h>
 #include <HttpCommand.h>
 
-namespace fas {
-
+namespace fas {  
+    
 namespace http {
 
 class HttpReqHandle {

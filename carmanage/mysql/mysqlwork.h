@@ -31,6 +31,7 @@ public:
     bool queryPassbyBoxID(int boxid, char *pass, int len);
     bool queryTaskInfobyBoxID(int boxid, fas::utils::taskinfo *oneinfo);
     int queryDisIDbyDisName(const char *DisName);
+    int queryPointLinebyAreaid(int areaid, std::vector<std::string> &pointlines);
     
 private:
     static mysqlwork* m_pInstance;

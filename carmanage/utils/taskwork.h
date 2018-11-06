@@ -16,6 +16,7 @@
 
 #include <string>
 #include <map>
+#include <queue>
 
 namespace fas {
 
@@ -32,14 +33,22 @@ public:
     void setdisid(const char *disid) {disid_ = atoi(disid);}
     void setdisname(const char *disname) {disname_ =  disname;}
     void setdisid(int ndisid) {disid_ = ndisid;}
+    void setpass(int npass);
+    void setpass(const char *pass) {pass_ =  pass;}
+    void setcarpath(const char *carpath) {carpath_ = carpath;}
     
     std::string getdisname() const;
+    std::string getpass() const;
+    std::string getcarpath() const;
+    std::string getmobile() const;
     
 private:
     int taskid_;
     std::string mobile_;
     int disid_;
     std::string disname_;
+    std::string pass_;
+    std::string carpath_;
 };
 
 class cartask
@@ -48,10 +57,13 @@ public:
     cartask();
     cartask(const cartask& orig);
     virtual ~cartask();
+    bool Addtaskinfo(int boxid, taskinfo *oneinfo);
+    bool PushTaskQueue(int boxid, const char *szpointline);
+    bool PopTaskQueue(std::string &strpointline, char *mobile, char *pass);
     
 private:
-    std::map<int, taskinfo> taskinfomap_;
-    
+    std::map<int, taskinfo*> taskinfomap_;
+    std::queue<int> taskqueue_;
 };
 
 class taskmap:public std::map<int, cartask*>
@@ -61,6 +73,7 @@ public:
     virtual ~taskmap();
     bool AddTask(int carid, cartask* onetask);
     cartask * CheckTask(int carid);
+    bool DeleteTask(int carid);
     
 private:
     bool getallow(long &hashallow);

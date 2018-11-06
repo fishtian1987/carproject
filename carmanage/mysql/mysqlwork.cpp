@@ -11,6 +11,8 @@
  * Created on 2018年4月30日, 下午11:39
  */
 
+#include <vector>
+
 #include "mysqlwork.h"
 #include "stdio.h"
 #include "stdlib.h"
@@ -189,6 +191,35 @@ int mysqlwork::queryDisIDbyDisName(const char *DisName)
     }
     
     return ret;    
+}
+
+int mysqlwork::queryPointLinebyAreaid(int areaid, std::vector<std::string> &pointlines)
+{
+    int ret = 0;
+    pointlines.clear();
+    mysqlConnection *mysqlConn = pool->fetchConnection();
+    if(mysqlConn != NULL)
+    {
+        char sqlstr[100];
+        snprintf(sqlstr, 100, "SELECT point_ids FROM `tp_distribution_point_line`");    
+        
+        pool->executeSql(mysqlConn, sqlstr);
+        
+        MYSQL_RES *res_ptr = mysql_store_result(mysqlConn->sock);
+        if(res_ptr) { 
+            MYSQL_ROW sqlrow;
+            while((sqlrow = mysql_fetch_row(res_ptr)))
+            {
+                pointlines.push_back(sqlrow[0]);
+                ret++;
+            }
+        }
+        
+        mysql_free_result(res_ptr); 
+        pool->recycleConnection(mysqlConn);
+    }
+    
+    return ret;     
 }
 
 /*

@@ -12,13 +12,15 @@
 #include "mysqlwork.h"
 #include "smswork.h"
 #include <vector>
-
+#include <taskwork.h>
 
 #include <boost/core/ignore_unused.hpp>
 
 fas::http::ContentTypes globalContentType;
 
 const size_t fas::http::HttpReqHandle::SendMassDataContext::readEveryTime_ = 1024;
+
+fas::utils::taskmap g_taskMap;
 
 fas::http::HttpReqHandle::HttpReqHandle() :
   handingMethod_(false) {
@@ -118,20 +120,92 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
         offset += 5;        
         
         struct stat st;
-        if (fas::utils::GetFileStat(workflgfile, &st)) {
-
+        if (fas::utils::GetFileStat(workflgfile, &st)) 
+        {
+            std::map<int, int> disidmap;
+            int disnum = 0;
+            fas::utils::cartask *onecar = new fas::utils::cartask();
+            
             for(int j = 1; j <= 8; j++)
             {
-                int ra = myrand();
-
+                int ra, ra1;
+                ra = myrand();
                 LOGGER_TRACE("pass "<< j <<": " << ra);
                 mysqlwork::GetInstance()->SetBoxPass(j, ra); 
-
-                ra = htonl(ra);
-
-                memcpy(buf+offset, &ra, 4);
+                ra1 = htonl(ra);
+                memcpy(buf+offset, &ra1, 4);
                 offset += 4;
+                
+                fas::utils::taskinfo *onetask = new fas::utils::taskinfo();
+                bool bFind = mysqlwork::GetInstance()->queryTaskInfobyBoxID(j, onetask);
+                if(bFind)
+                {
+                    int disid = mysqlwork::GetInstance()->queryDisIDbyDisName(onetask->getdisname().c_str());
+                    onetask->setdisid(disid);
+                    onetask->setpass(ra);
+                    disidmap.insert(std::make_pair(j, disid));
+                    onecar->Addtaskinfo(j, onetask);
+                    disnum++;
+                }
+                else
+                {
+                    delete onetask;
+                }                
             }
+            
+            std::vector<std::string> pointlines, points;
+            int tmpnum, tmppointid;
+            mysqlwork::GetInstance()->queryPointLinebyAreaid(1, pointlines);
+            for(int x = 0; x < pointlines.size(); x++)
+            {
+                fas::utils::StringSplitBychar(pointlines[x].c_str(), ',', points, 0);
+                tmpnum = 0;
+                std::map<int,int>::iterator disiditer;
+                
+                for(disiditer = disidmap.begin(); disiditer != disidmap.end(); disiditer++)
+                {
+                    int tmpdisid = disiditer->second;
+                    for(int y = 0; y < points.size(); y++)
+                    {
+                        tmppointid = atoi(points[y].c_str());
+                        if(tmpdisid == tmppointid)
+                        {
+                            tmpnum++;
+                            break;
+                        }
+                    }
+                }
+                
+                if(tmpnum == disnum)
+                {
+                    std::map<int,int>::iterator disiditer;
+                    int tmpdisid, tmpboxid;
+                    char tmppath[200], tmppoint[10];
+                    memset(tmppath, 0, 200);
+                    for(int y = 0; y < points.size(); y++)
+                    {
+                        tmppointid = atoi(points[y].c_str());
+                        for(disiditer = disidmap.begin(); disiditer != disidmap.end(); disiditer++)
+                        {
+                            tmpdisid = disiditer->second;
+                            if(tmpdisid == tmppointid)
+                            {
+                                sprintf(tmppoint, "%d", tmpdisid);
+                                strcat(tmppath, tmppoint);
+                                onecar->PushTaskQueue(tmpboxid, tmppath);
+                            }
+                            else
+                            {
+                                sprintf(tmppoint, "%d,", tmpdisid);
+                                strcat(tmppath, tmppoint);  
+                            }
+                        }
+                    }
+                }
+            }
+            
+            int carid = atoi(command_.getCarid().c_str());
+            g_taskMap.AddTask(carid, onecar);
         }
         else if(fas::utils::GetFileStat(putflgfile, &st))
         {
@@ -190,48 +264,47 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
         if (fas::utils::GetFileStat(putflgfile, &st)) {
             remove(putflgfile.c_str());
         }
-        
-        std::vector<int> disidarr;
-        for(int j = 1; j <= 8; j++)
-        {
-            fas::utils::taskinfo *onetask = new fas::utils::taskinfo();
-            int bFind = mysqlwork::GetInstance()->queryTaskInfobyBoxID(j, onetask);
-            if(bFind)
-            {
-                int disid = mysqlwork::GetInstance()->queryDisIDbyDisName(onetask->getdisname().c_str());
-                onetask->setdisid(disid);
-                disidarr.push_back(disid);
-            }
-            else
-            {
-                delete onetask;
-            }
-        }
-        
-        
     }
     else if(command_.getCommand().compare("getpath") == 0)
     {    
-        int boxid;
+        int carid;
         char smstext[100], mobile[20], pass[20];
+        std::string strpointline;
         
-        boxid = atoi(command_.getCarid().c_str());
-        mysqlwork::GetInstance()->queryPassbyBoxID(boxid, pass, 20);
-        sprintf(smstext, "【神马同城】您的验证码是%s", pass);
-        strcpy(mobile, "15898731554");
+        carid = atoi(command_.getCarid().c_str());
+        fas::utils::cartask *onetask = g_taskMap.CheckTask(carid);
+        if(onetask == NULL)
+        {
+            return false;
+        }
         
-        fas::utils::send_sms(mobile, smstext);
-         
+        struct stat st;
+        workflgfile = options_.getFlagPath() + command_.getCarid() + "_work.flg";
+        if (fas::utils::GetFileStat(workflgfile, &st)) {
+            remove(workflgfile.c_str());
+        }        
+
         file = options_.getDataPath() + command_.getCarid() + "_getpath.txt";       
         unsigned char cksum = 0;
         unsigned char buf[40];
         int offset = 0;
         memcpy(buf+offset, "\xAA\xAF\x03\x00\x04", 5);
         offset += 5;    
-
-        memcpy(buf+offset, "41,42", 5);
-        offset += 5;        
         
+        if(onetask->PopTaskQueue(strpointline, mobile, pass) == false)
+        {
+            sprintf(smstext, "【神马同城】您的验证码是%s", pass);
+            fas::utils::send_sms(mobile, smstext);
+
+            memcpy(buf+offset, strpointline.c_str(), strpointline.length());
+            offset += strpointline.length();                 
+        }
+        else
+        {
+            memcpy(buf+offset, "ok", 2);
+            offset += 2;               
+        }
+   
         for(int i = 0; i < offset; i++)
             cksum += buf[i];
         buf[offset]=cksum;
