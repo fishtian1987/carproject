@@ -159,6 +159,7 @@
             <linkerLibLibItem>z</linkerLibLibItem>
             <linkerLibLibItem>m</linkerLibLibItem>
             <linkerLibLibItem>dl</linkerLibLibItem>
+            <linkerLibLibItem>curl</linkerLibLibItem>
             <linkerLibFileItem>/www/server/mysql/lib/libmysqlclient.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>

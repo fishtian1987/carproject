@@ -15,6 +15,8 @@
 #define SMSWORK_H
 
 #include <curl/curl.h>
+#include <Thread.h>
+#include <queue>
 
 namespace fas {
 
@@ -37,6 +39,41 @@ void send_tpl_sms(char *mobile, int tpl_id, char *tpl_value);
 * 发送语音验证码
 */
 void send_voice(char *mobile, int code);
+
+class smspara
+{
+public:
+    smspara();
+    smspara(std::string mobile, std::string text);
+    smspara(std::string mobile, int code);
+    ~smspara();
+    
+    std::string getmobile() const;
+    std::string gettext() const;
+    int getcode() const;
+    int gettype() const;
+private:
+    std::string mobile_;
+    std::string text_;
+    int code_;
+    int type_; //1 sms 2 voice
+};
+
+class smswork {
+public:
+    smswork();
+    virtual ~smswork();
+ public:
+    static smswork* GetInstance();
+    static void DestroyInstance();
+    void PushSmsQueue(std::string mobile, std::string text);
+    void sendone();
+private:
+    static smswork* m_pInstance;
+    std::queue<smspara> smsparas_;
+};
+
+void *SmsWorkThread(void *p);
 
 }
 

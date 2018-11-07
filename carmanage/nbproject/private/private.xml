@@ -7,7 +7,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/root/NetBeansProjects/carmanage/http/HttpServer.cpp</file>
+            <file>file:/root/NetBeansProjects/carmanage/http/HttpReqHandle.cpp</file>
+            <file>file:/root/NetBeansProjects/carmanage/mysql/mysqlwork.h</file>
+            <file>file:/root/NetBeansProjects/carmanage/utils/taskwork.cpp</file>
+            <file>file:/root/NetBeansProjects/carmanage/http/HttpCommand.cpp</file>
+            <file>file:/root/NetBeansProjects/carmanage/mysql/mysqlwork.cpp</file>
+            <file>file:/root/NetBeansProjects/carmanage/base/Thread.cpp</file>
+            <file>file:/root/NetBeansProjects/carmanage/utils/taskwork.h</file>
+            <file>file:/root/NetBeansProjects/carmanage/main.cpp</file>
+            <file>file:/root/NetBeansProjects/carmanage/base/Thread.h</file>
+            <file>file:/root/NetBeansProjects/carmanage/base/ThreadPool.cpp</file>
+            <file>file:/root/NetBeansProjects/carmanage/utils/smswork.h</file>
+            <file>file:/root/NetBeansProjects/carmanage/http/HttpReqHandle.h</file>
+            <file>file:/root/NetBeansProjects/carmanage/utils/smswork.cpp</file>
         </group>
     </open-files>
 </project-private>

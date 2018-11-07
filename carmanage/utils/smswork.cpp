@@ -130,3 +130,101 @@ void fas::utils::send_voice(char *mobile, int code)
     
     curl_easy_cleanup(curl);       
 }
+
+fas::utils::smspara::smspara()
+{}
+
+fas::utils::smspara::smspara(std::string mobile, std::string text) :
+    mobile_(mobile),
+    text_(text),
+    type_(1) {
+}
+fas::utils::smspara::smspara(std::string mobile, int code) :
+    mobile_(mobile),
+    code_(code),
+    type_(2) {
+}
+
+fas::utils::smspara::~smspara()
+{}
+
+std::string fas::utils::smspara::getmobile() const {
+    return mobile_;
+}
+std::string fas::utils::smspara::gettext() const {
+    return text_;
+}
+int fas::utils::smspara::getcode() const {
+    return code_;
+}
+int fas::utils::smspara::gettype() const {
+    return type_;
+}
+
+fas::utils::smswork::smswork() {
+}
+
+fas::utils::smswork::~smswork() {
+
+}
+
+void fas::utils::smswork::DestroyInstance()
+{
+    if ( m_pInstance != 0 )
+    {
+        delete m_pInstance;
+        m_pInstance = 0;
+    }
+}
+
+fas::utils::smswork *fas::utils::smswork::m_pInstance = 0;
+
+fas::utils::smswork *fas::utils::smswork::GetInstance()
+{
+    if ( m_pInstance == 0 )
+    {
+        m_pInstance = new fas::utils::smswork();
+    }
+
+    return m_pInstance;
+}
+
+void fas::utils::smswork::PushSmsQueue(std::string mobile, std::string text)
+{
+    smsparas_.push(smspara(mobile, text));  
+}
+
+void fas::utils::smswork::sendone()
+{
+    if(smsparas_.size() > 0)
+    {
+        int type = smsparas_.front().gettype();
+        if(type == 1)
+        {
+            std::string mobile = smsparas_.front().getmobile();
+            std::string text = smsparas_.front().gettext();
+            
+            send_sms((char *)mobile.c_str(), (char *)text.c_str());
+        }
+        else if(type == 2)
+        {
+            std::string mobile = smsparas_.front().getmobile();
+            int code = smsparas_.front().getcode();
+            
+            send_voice((char *)mobile.c_str(), code);
+        }
+        
+        smsparas_.pop();
+    }
+}
+
+void *fas::utils::SmsWorkThread(void *p)
+{
+    while(1)
+    {
+        fas::utils::smswork::GetInstance()->sendone();
+        sleep(10);
+    }
+    
+    return 0;
+}

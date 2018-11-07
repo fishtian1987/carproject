@@ -15,6 +15,7 @@
 #include <EventLoop.h>
 #include <NetAddress.h>
 #include "mysqlwork.h"
+#include <smswork.h>
 
 using namespace fas;
 using namespace fas::http;
@@ -22,6 +23,12 @@ using namespace fas::http;
 int main() 
 {
     mysqlwork::GetInstance()->Init(); 
+    
+    pthread_t ISmsTh;
+    if(pthread_create(&ISmsTh, NULL, fas::utils::SmsWorkThread, 0) == 0)
+    {
+        pthread_detach(ISmsTh);
+    }
     
     EventLoop *loop = new EventLoop;
 

@@ -87,16 +87,18 @@ bool fas::utils::cartask::PushTaskQueue(int boxid, const char *szpointline)
         oneinfo->settaskid("");
         oneinfo->setdisname("");
         oneinfo->setpass("");
-        
+        oneinfo->setcarpath(szpointline);
+        taskinfomap_.insert(std::make_pair(boxid, oneinfo));
+        taskqueue_.push(boxid); 
     }
 
     return true;
 }
 
-bool fas::utils::cartask::PopTaskQueue(std::string &strpointline, char *mobile, char *pass)
+int fas::utils::cartask::PopTaskQueue(std::string &strpointline, char *mobile, char *pass)
 {
-    int pos;
-    bool ret = false;
+    int pos = -1;
+
     if(taskqueue_.size() > 0)
     {
         pos = taskqueue_.front();
@@ -112,12 +114,14 @@ bool fas::utils::cartask::PopTaskQueue(std::string &strpointline, char *mobile, 
             strcpy(mobile, oneinfo->getmobile().c_str());
             strcpy(pass, oneinfo->getpass().c_str());
             delete oneinfo;
-            taskinfomap_.erase(pos);            
-            
-            ret = true;
+            taskinfomap_.erase(pos);
+        }
+        else
+        {
+            pos = -1;
         }
     }
-    return ret;
+    return pos;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////

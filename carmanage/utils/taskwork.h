@@ -59,7 +59,7 @@ public:
     virtual ~cartask();
     bool Addtaskinfo(int boxid, taskinfo *oneinfo);
     bool PushTaskQueue(int boxid, const char *szpointline);
-    bool PopTaskQueue(std::string &strpointline, char *mobile, char *pass);
+    int PopTaskQueue(std::string &strpointline, char *mobile, char *pass);
     
 private:
     std::map<int, taskinfo*> taskinfomap_;

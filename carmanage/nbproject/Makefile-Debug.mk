@@ -99,7 +99,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lglog -lpthread -ljsoncpp -lz -lm -ldl /www/server/mysql/lib/libmysqlclient.a
+LDLIBSOPTIONS=-lglog -lpthread -ljsoncpp -lz -lm -ldl -lcurl /www/server/mysql/lib/libmysqlclient.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}

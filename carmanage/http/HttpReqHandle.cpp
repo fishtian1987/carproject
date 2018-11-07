@@ -113,13 +113,17 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
         workflgfile = options_.getFlagPath() + command_.getCarid() + "_work.flg";
         file = options_.getDataPath() + command_.getCarid() + "_getpass.txt";
         
+        struct stat st;
+        if (fas::utils::GetFileStat(file, &st)) {
+            remove(file.c_str());
+        }  
+        
         unsigned char cksum = 0;
         unsigned char buf[40];
         int offset = 0;
         memcpy(buf+offset, "\xAA\xAF\x03\x00\x02", 5);
         offset += 5;        
         
-        struct stat st;
         if (fas::utils::GetFileStat(workflgfile, &st)) 
         {
             std::map<int, int> disidmap;
@@ -187,20 +191,26 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
                         tmppointid = atoi(points[y].c_str());
                         for(disiditer = disidmap.begin(); disiditer != disidmap.end(); disiditer++)
                         {
+                            tmpboxid = disiditer->first;
                             tmpdisid = disiditer->second;
                             if(tmpdisid == tmppointid)
                             {
-                                sprintf(tmppoint, "%d", tmpdisid);
+                                sprintf(tmppoint, "%d", tmppointid);
                                 strcat(tmppath, tmppoint);
                                 onecar->PushTaskQueue(tmpboxid, tmppath);
+                                memset(tmppath, 0, 200);
                             }
                             else
                             {
-                                sprintf(tmppoint, "%d,", tmpdisid);
+                                sprintf(tmppoint, "%d,", tmppointid);
                                 strcat(tmppath, tmppoint);  
                             }
                         }
                     }
+                    
+                    int tmplen = strlen(tmppath);
+                    tmppath[tmplen-1] = '\0';
+                    onecar->PushTaskQueue(0, tmppath);
                 }
             }
             
@@ -284,20 +294,33 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
             remove(workflgfile.c_str());
         }        
 
-        file = options_.getDataPath() + command_.getCarid() + "_getpath.txt";       
+        file = options_.getDataPath() + command_.getCarid() + "_getpath.txt";
+        
+        if (fas::utils::GetFileStat(file, &st)) {
+            remove(file.c_str());
+        }  
+        
         unsigned char cksum = 0;
         unsigned char buf[40];
         int offset = 0;
         memcpy(buf+offset, "\xAA\xAF\x03\x00\x04", 5);
         offset += 5;    
         
-        if(onetask->PopTaskQueue(strpointline, mobile, pass) == false)
+        bool bdeltask = false;
+        int boxid = onetask->PopTaskQueue(strpointline, mobile, pass);
+        if(boxid > 0)
         {
             sprintf(smstext, "【神马同城】您的验证码是%s", pass);
-            fas::utils::send_sms(mobile, smstext);
+            fas::utils::smswork::GetInstance()->PushSmsQueue(mobile, smstext);
 
             memcpy(buf+offset, strpointline.c_str(), strpointline.length());
-            offset += strpointline.length();                 
+            offset += strpointline.length();
+        }
+        else if(boxid == 0)
+        {
+            memcpy(buf+offset, strpointline.c_str(), strpointline.length());
+            offset += strpointline.length();
+            bdeltask = true;
         }
         else
         {
@@ -311,6 +334,11 @@ bool fas::http::HttpReqHandle::HandleGet(TcpConnShreadPtr conn, const HttpReques
         offset++;
 
         fas::utils::WriteFile(file, buf, offset);
+        
+        if(bdeltask)
+        {
+            g_taskMap.DeleteTask(carid);
+        }
     }
     else if(command_.getCommand().compare("workfinish") == 0)
     {

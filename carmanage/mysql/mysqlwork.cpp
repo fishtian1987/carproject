@@ -105,7 +105,10 @@ int mysqlwork::queryTaskIDbyBoxID(int boxid)
         MYSQL_RES *res_ptr = mysql_store_result(mysqlConn->sock);
         if(res_ptr) { 
             MYSQL_ROW sqlrow = mysql_fetch_row(res_ptr);
-            ret = atoi(sqlrow[0]);
+            if(sqlrow != NULL)
+            {
+                ret = atoi(sqlrow[0]);
+            }
         }
         
         mysql_free_result(res_ptr); 
@@ -128,7 +131,10 @@ bool mysqlwork::queryPassbyBoxID(int boxid, char *pass, int len)
         MYSQL_RES *res_ptr = mysql_store_result(mysqlConn->sock);
         if(res_ptr) { 
             MYSQL_ROW sqlrow = mysql_fetch_row(res_ptr);
-            strcpy(pass, sqlrow[0]);
+            if(sqlrow != NULL)
+            {
+                strcpy(pass, sqlrow[0]);               
+            }
         }
         
         mysql_free_result(res_ptr); 
@@ -144,8 +150,8 @@ bool mysqlwork::queryTaskInfobyBoxID(int boxid, fas::utils::taskinfo *oneinfo)
     mysqlConnection *mysqlConn = pool->fetchConnection();
     if(mysqlConn != NULL)
     {
-        char sqlstr[100];
-        snprintf(sqlstr, 100, "SELECT id,consignee_mobile,distribution_point_id,disname FROM `tp_task` WHERE carriage_num = '%d' ORDER BY starttime DESC LIMIT 1", boxid);    
+        char sqlstr[200];
+        snprintf(sqlstr, 200, "SELECT id,consignee_mobile,distribution_point_id,disname FROM `tp_task` WHERE carriage_num = '%d' ORDER BY starttime DESC LIMIT 1", boxid);    
         
         pool->executeSql(mysqlConn, sqlstr);
         
@@ -154,11 +160,14 @@ bool mysqlwork::queryTaskInfobyBoxID(int boxid, fas::utils::taskinfo *oneinfo)
             int j = mysql_num_fields(res_ptr);          
             if (j == 4) {
                 MYSQL_ROW sqlrow = mysql_fetch_row(res_ptr);
-                oneinfo->settaskid(sqlrow[0]);
-                oneinfo->setmobile(sqlrow[1]);
-                oneinfo->settaskid(sqlrow[2]);
-                oneinfo->setdisname(sqlrow[3]);
-                bFind = true;
+                if(sqlrow != NULL)
+                {
+                    oneinfo->settaskid(sqlrow[0]);
+                    oneinfo->setmobile(sqlrow[1]);
+                    oneinfo->settaskid(sqlrow[2]);
+                    oneinfo->setdisname(sqlrow[3]);
+                    bFind = true;
+                }
             }
         }
         
@@ -183,7 +192,10 @@ int mysqlwork::queryDisIDbyDisName(const char *DisName)
         MYSQL_RES *res_ptr = mysql_store_result(mysqlConn->sock);
         if(res_ptr) { 
             MYSQL_ROW sqlrow = mysql_fetch_row(res_ptr);
-            ret = atoi(sqlrow[0]);
+            if(sqlrow != NULL)
+            {
+                ret = atoi(sqlrow[0]);
+            }
         }
         
         mysql_free_result(res_ptr); 
