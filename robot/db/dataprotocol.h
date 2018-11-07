@@ -19,9 +19,9 @@ public:
     void sendRoutesData(QList<RouteInfo> &);
     void sendPasstoGPS();
     void sendPasstoGPS(QByteArray buf);
-    void getPassby4G();
-    void getPathby4G();
-    void sendWorkStateby4G();
+    void getPassby4G(int carid);
+    void getPathby4G(int carid);
+    void sendWorkStateby4G(int carid, int boxid);
 private:
     long long lat;
     long long log;

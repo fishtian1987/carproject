@@ -71,3 +71,23 @@ QList<RouteInfo> TransactionThread::routeData()
     QMutexLocker locker(&mutex);
     return currentData;
 }
+
+WorkThread::WorkThread()
+{}
+
+WorkThread::~WorkThread()
+{}
+
+void WorkThread::run()
+{
+    forever {
+        datapro->getPassby4G(1);
+    }
+}
+
+void WorkThread::setDataProtocol(DataProtocol *dp)
+{
+    QMutexLocker locker(&mutex);
+    datapro = dp;
+}
+

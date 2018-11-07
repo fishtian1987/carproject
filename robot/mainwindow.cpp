@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     dataPro=new DataProtocol;
     packet=new Package;
     thread.setDatabaseHelp(DatabaseHelper::instance());
+    work.setDataProtocol(dataPro);
     QObject::connect(ui->actionMagDriftAngle,SIGNAL(triggered()),this,SLOT(openMagDriftAngleDlg()));
     connect(ui->actionGpsBias,SIGNAL(triggered()),this,SLOT(openLocationDriftDlg()));
     connect(ui->actionPID,SIGNAL(triggered()),this,SLOT(openPIDDlg()));
@@ -62,7 +63,7 @@ void MainWindow::test()
                    "<p><font color=blue>参数必须在0~11之间.</font>");
     dialog.exec();
 
-    dataPro->getPassby4G();
+    dataPro->getPassby4G(1);
     //dataPro->sendPasstoGPS();
 
 //    Usart4GDriver *usart4g;
@@ -275,6 +276,8 @@ void MainWindow::analysisGPSData(QByteArray &data)
 {
     unsigned char _temp=0;
     _temp=(uint8_t)data.at(0);
+    dataPro->sendWorkStateby4G(1, _temp);
+
     char tmpstr[30];
     sprintf(tmpstr, "%d box open!!\n", _temp);
     QMessageBox::information(NULL, "Title", tmpstr, QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);

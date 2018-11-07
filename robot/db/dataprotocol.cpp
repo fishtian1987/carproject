@@ -84,7 +84,7 @@ void DataProtocol::sendPasstoGPS(QByteArray buf)
 
         if(memcpy(buf.data(), "\x00\x00\x00\x00", 4) !=0)
         {
-            getPathby4G();
+            getPathby4G(1);
         }
     }
 }
@@ -103,20 +103,25 @@ void DataProtocol::sendPasstoGPS()
     package->packGPSMsg(&msg);
 }
 
-void DataProtocol::getPassby4G()
+void DataProtocol::getPassby4G(int carid)
 {
-    package->pack4gMsg("cmd=getpass&carid=1");
+    QString cmd;
+    cmd.sprintf("cmd=getpass&carid=%d", carid);
+    package->pack4gMsg(cmd);
 }
 
-void DataProtocol::getPathby4G()
+void DataProtocol::getPathby4G(int carid)
 {
-    QMessageBox::information(NULL, "Title", "getpath", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-    package->pack4gMsg("cmd=getpath&carid=1");
+    QString cmd;
+    cmd.sprintf("cmd=getpath&carid=%d", carid);
+    package->pack4gMsg(cmd);
 }
 
-void DataProtocol::sendWorkStateby4G()
+void DataProtocol::sendWorkStateby4G(int carid, int boxid)
 {
-    package->pack4gMsg("cmd=workfinish&carid=1");
+    QString cmd;
+    cmd.sprintf("cmd=workfinish&carid=%d&boxid=%d", carid, boxid);
+    package->pack4gMsg(cmd);
 }
 
 

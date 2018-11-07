@@ -62,6 +62,7 @@ private:
     Ui::MainWindow *ui;
     uint8_t sendDataState;
     TransactionThread thread;
+    WorkThread work;
     DataProtocol *dataPro;
     Package *packet;
 };

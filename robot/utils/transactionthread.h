@@ -6,6 +6,7 @@
 #include <QQueue>
 #include <QThread>
 #include <QWaitCondition>
+#include "db/dataprotocol.h"
 
 class Transaction
 {
@@ -41,6 +42,20 @@ private:
     DatabaseHelper *dbdao=NULL;
     QQueue<Transaction *> transactions;
     QWaitCondition transactionAdded;
+    QMutex mutex;
+};
+
+class WorkThread : public QThread
+{
+    Q_OBJECT
+public:
+    WorkThread();
+    ~WorkThread();
+    void setDataProtocol(DataProtocol *dp);
+protected:
+    void run();
+private:
+    DataProtocol *datapro = NULL;
     QMutex mutex;
 };
 
