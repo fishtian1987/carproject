@@ -71,34 +71,9 @@ void DataProtocol::sendRoutesData(QList<RouteInfo> &data)
 
 void DataProtocol::sendPasstoGPS(QByteArray buf)
 {
-    QMessageBox::information(NULL, "Title", "Content", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-    if(memcpy(buf.data(), "ok", 2) != 0)
-    {
-        Message msg;
-        msg.msgID=Atk::D_CGPSCONTROL;
-        msg.data.append(buf);
-
-        QMessageBox::information(NULL, "Title", "Content", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-
-        package->packGPSMsg(&msg);
-
-        if(memcpy(buf.data(), "\x00\x00\x00\x00", 4) !=0)
-        {
-            getPathby4G(1);
-        }
-    }
-}
-
-void DataProtocol::sendPasstoGPS()
-{
     Message msg;
-
-    int temp = 111111;
     msg.msgID=Atk::D_CGPSCONTROL;
-    msg.data.append(BYTE3(temp));
-    msg.data.append(BYTE2(temp));
-    msg.data.append(BYTE1(temp));
-    msg.data.append(BYTE0(temp));
+    msg.data.append(buf);
 
     package->packGPSMsg(&msg);
 }

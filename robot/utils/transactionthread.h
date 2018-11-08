@@ -52,11 +52,14 @@ public:
     WorkThread();
     ~WorkThread();
     void setDataProtocol(DataProtocol *dp);
+    void setgetpathstate(int tm = 2, bool settm = false);
 protected:
     void run();
 private:
     DataProtocol *datapro = NULL;
     QMutex mutex;
+    bool bgetpath;
+    int sleeptime;
 };
 
 #endif // TRANSACTIONTHREAD_H

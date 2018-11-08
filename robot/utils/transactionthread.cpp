@@ -73,7 +73,10 @@ QList<RouteInfo> TransactionThread::routeData()
 }
 
 WorkThread::WorkThread()
-{}
+{
+    bgetpath = false;
+    sleeptime = 2;
+}
 
 WorkThread::~WorkThread()
 {}
@@ -82,12 +85,33 @@ void WorkThread::run()
 {
     forever {
         datapro->getPassby4G(1);
+
+        sleep(3);
+        if(bgetpath)
+        {
+            QMutexLocker locker(&mutex);
+            sleep(sleeptime);
+            datapro->getPathby4G(1);
+            bgetpath = false;
+        }
+        sleep(3);
     }
 }
 
 void WorkThread::setDataProtocol(DataProtocol *dp)
 {
-    QMutexLocker locker(&mutex);
     datapro = dp;
 }
+
+void WorkThread::setgetpathstate(int tm, bool settm)
+{
+    QMutexLocker locker(&mutex);
+    bgetpath = true;
+    if(settm)
+        sleeptime = tm;
+}
+
+
+
+
 

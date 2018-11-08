@@ -42,6 +42,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&thread, SIGNAL(allTransactionsDone()),this, SLOT(allTransactionsDone()));
     connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(test()));
     initialize();
+
+    work.start();
 }
 
 void MainWindow::test()
@@ -63,8 +65,8 @@ void MainWindow::test()
                    "<p><font color=blue>参数必须在0~11之间.</font>");
     dialog.exec();
 
-    dataPro->getPassby4G(1);
-    //dataPro->sendPasstoGPS();
+    //dataPro->getPassby4G(1);
+    work.setgetpathstate();
 
 //    Usart4GDriver *usart4g;
 //    usart4g=Usart4GDriver::instance();
@@ -187,12 +189,27 @@ void MainWindow::analysis4GData(QByteArray &data)
         dataPro->sendPasstoGPS(data.mid(1));
     }break;
     case Atk::C_WORKFINISH_4G:{
-
     }
     case Atk::C_GETPATH_4G:{
         SetPoint(data.mid(1));
     }
     default:break;
+    }
+}
+
+void MainWindow::analysis4GPass(QByteArray buf)
+{
+    QMessageBox::information(NULL, "Title", "Content", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+    if(memcpy(buf.data(), "ok", 2) != 0)
+    {
+        QMessageBox::information(NULL, "Title", "Content", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+
+        dataPro->sendPasstoGPS(buf);
+
+        if(memcpy(buf.data(), "\x00\x00\x00\x00", 4) !=0)
+        {
+            work.setgetpathstate();
+        }
     }
 }
 
@@ -277,6 +294,8 @@ void MainWindow::analysisGPSData(QByteArray &data)
     unsigned char _temp=0;
     _temp=(uint8_t)data.at(0);
     dataPro->sendWorkStateby4G(1, _temp);
+
+    work.setgetpathstate(50, true);
 
     char tmpstr[30];
     sprintf(tmpstr, "%d box open!!\n", _temp);

@@ -57,6 +57,7 @@ private:
     void ResetSendDataState();
     void SetPoint(QString Pointstr);
     QStringList autoSolveRoute( int sd, int ed);
+    void analysis4GPass(QByteArray buf);
 
 private:
     Ui::MainWindow *ui;

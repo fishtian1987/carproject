@@ -17,7 +17,6 @@ public:
     ~DataProtocol();
     void sendBaseLocation(QList<RouteInfo> &);
     void sendRoutesData(QList<RouteInfo> &);
-    void sendPasstoGPS();
     void sendPasstoGPS(QByteArray buf);
     void getPassby4G(int carid);
     void getPathby4G(int carid);
